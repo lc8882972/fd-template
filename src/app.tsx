@@ -1,14 +1,20 @@
 import * as React from 'react';
-import { hot } from 'react-hot-loader'
 
-class App extends React.Component {
+import { HashRouter as Router } from 'react-router-dom';
+import RouteList from 'components/route-list';
+import routes from './routerConfig';
 
-  x: string = 'null';
-  public render() {
-    return (
-      <div>Hello World! Mr.Zh</div>
-    )
+import './index.scss';
+
+
+class App extends React.Component{
+
+
+  public render(){
+    return (  <Router>
+      <RouteList routes={routes} />
+    </Router>);
   }
 }
 
-export default hot(module)(App)
+export default App;

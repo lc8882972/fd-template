@@ -123,11 +123,11 @@ const config = {
       },
     ],
   },
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'moment': 'moment',
-  },
+  // externals: {
+  //   'react': 'React',
+  //   'react-dom': 'ReactDOM',
+  //   'moment': 'moment',
+  // },
   plugins: [
     new HappyPack({
       debug: true,
