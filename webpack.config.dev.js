@@ -4,7 +4,9 @@ const globby = require('globby');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SimpleProgressPlugin = require('webpack-simple-progress-plugin');
+const ThemePlugin = require('@alifd/next-theme-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const os = require('os');
 const HappyPack = require('happypack');
 const colors = require('colors');
@@ -87,7 +89,7 @@ const config = {
   },
   output: {
     path: path.resolve(process.env.BUILD_DEST || 'build'),
-    publicPath: 'build',
+    publicPath: '/',
     filename: '[name].js',
     chunkFilename: '[name].js',
   },
@@ -107,9 +109,9 @@ const config = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'happypack/loader',
+            loader: 'babel-loader',
             options: {
-              id: 'js',
+              cacheDirectory: true,
             },
           },
         ],
@@ -117,8 +119,8 @@ const config = {
       {
         test: /\.scss/,
         use: [
-          MiniCssExtractPlugin.loader,
-          'happypack/loader?id=scss',
+          'style-loader',
+          ...scssLoader
         ],
       },
     ],
@@ -129,29 +131,14 @@ const config = {
   //   'moment': 'moment',
   // },
   plugins: [
-    new HappyPack({
-      debug: true,
-      id: 'js',
-      loaders: [{
-        path: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-        },
-      }],
-      threadPool: happyThreadPool,
-    }),
-
-    new HappyPack({
-      id: 'scss',
-      threadPool: happyThreadPool,
-      loaders: scssLoader,
-    }),
-
     new ForkTsCheckerWebpackPlugin({tsconfig:'./tsconfig.json'}),
-
+    new ThemePlugin(theme),
     new MiniCssExtractPlugin({
       filename: '[name].bundle.css',
       chunkFilename: '[name].bundle.css',
+    }),
+    new HtmlWebpackPlugin({
+      template:'./static/index.html'
     }),
     // 允许错误不打断程序
     new webpack.NoEmitOnErrorsPlugin(),
