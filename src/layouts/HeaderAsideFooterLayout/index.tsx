@@ -1,4 +1,5 @@
 import * as React from "react";
+import { observer }  from 'mobx-react';
 import Header from "components/header/index";
 import SideMenu from "components/side-menu/index";
 import { asideMenuConfig } from "../../menuConfig";
@@ -6,6 +7,7 @@ import Breadcrumb from "components/base/breadcrumb";
 
 import "./index.scss";
 
+@observer
 class Layout extends React.Component {
   render() {
     return (

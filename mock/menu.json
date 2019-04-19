@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "sys_menu",
+    "url": "/menu",
+    "description": "菜单管理",
+    "parent": null,
+    "enabled": true
+  },
+  {
+    "id": 2,
+    "name": "sys_menu_create",
+    "url": "/menu/post",
+    "description": "添加菜单",
+    "parent": 1,
+    "enabled": true
+  },
+  {
+    "id": 3,
+    "name": "sys_menu_list",
+    "url": "/menu/list",
+    "description": "菜单列表",
+    "parent": 1,
+    "enabled": true
+  },
+  {
+    "id": 4,
+    "name": "sys_permission",
+    "url": "/permission",
+    "description": "权限管理",
+    "parent": null,
+    "enabled": true
+  },
+  {
+    "id": 5,
+    "name": "sys_permission_set",
+    "url": "/permission/set",
+    "description": "设置权限",
+    "parent": 4,
+    "enabled": true
+  }
+]

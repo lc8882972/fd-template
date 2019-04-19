@@ -19,7 +19,7 @@
     "access": "public"
   },
   "scripts": {
-    "start": "cross-env DEV=1 LIVELOAD=1 webpack-dev-server --mode development --config ./webpack.config.dev.js --host 0.0.0.0 --port 8080",
+    "start": "cross-env DEV=1 LIVELOAD=1 webpack-dev-server --mode development --config ./webpack.config.dev.js --host 0.0.0.0 --port 8090",
     "build": "webpack --mode production",
     "lint": "tslint --fix",
     "prettier": "prettier src/**/*.scss --write"
@@ -52,8 +52,11 @@
   "dependencies": {
     "@alifd/next": "^1.x",
     "@alifd/theme-2": "*",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.8.0",
     "classnames": "^2.2.5",
+    "mobx": "^5.9.4",
+    "mobx-react": "^5.4.3",
     "moment": "^2.24.0",
     "prop-types": "^15.6.0",
     "react": "^16.3.0",

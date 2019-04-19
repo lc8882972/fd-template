@@ -1,8 +1,8 @@
 import * as React from "react";
 import "./index.scss";
-import { Table, Pagination, Grid, Tab, Form, Input } from "@alifd/next";
+import { Table, Pagination, Tab, Form, Input } from "@alifd/next";
 import { RangePicker } from "@alifd/next/lib/date-picker";
-const { Row, Col } = Grid;
+
 interface IState {
   loading: boolean;
   dataSource: Readonly<Array<any>>;

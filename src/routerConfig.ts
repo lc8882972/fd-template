@@ -8,6 +8,8 @@ import Page1 from 'pages/page1/index';
 import Page2 from 'pages/page2/index';
 import Help from 'pages/help/index';
 import Setting from 'pages/setting/index';
+import Permission from 'pages/permission/set';
+import MenuList from 'pages/menu';
 
 const routerConfig = [
   {
@@ -38,6 +40,18 @@ const routerConfig = [
     path: '/help',
     exact: true,
     component: Help,
+  },
+  {
+    path: '/permission/set',
+    exact: true,
+    layout: HeaderAsideFooterLayout,
+    component: Permission,
+  },
+  {
+    path: '/menu/list',
+    exact: true,
+    layout: HeaderAsideFooterLayout,
+    component: MenuList,
   },
 ];
 
