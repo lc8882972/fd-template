@@ -2,6 +2,7 @@ import * as React from "react";
 import "./index.scss";
 import { Table, Pagination, Tab, Form, Input } from "@alifd/next";
 import { RangePicker } from "@alifd/next/lib/date-picker";
+import ListTable from "components/table/index";
 
 interface IState {
   loading: boolean;
@@ -20,6 +21,8 @@ const dataSource = (j: number) => {
       time: 2000 + j
     });
   }
+
+  // console.log(JSON.stringify(result));
   return result;
 };
 
@@ -40,7 +43,6 @@ class Page1 extends React.Component<any, IState> {
         selectedRowKeys: [100306660940, 100306660941]
       }
     };
-    // this.ajax('/mock/home.json');
   }
 
   // ajax = (url:string)=>{
@@ -78,7 +80,7 @@ class Page1 extends React.Component<any, IState> {
     }
   };
   renderR = (value: string, index: number, record: any) => {
-    return <a>Remove({record.id})</a>;
+    return <a>删除({record.id})</a>;
   };
   render() {
     return (
@@ -113,19 +115,24 @@ class Page1 extends React.Component<any, IState> {
             </Form>
           </Tab.Item>
         </Tab>
-        <Table
-          dataSource={this.state.dataSource}
-          loading={this.state.loading}
-          isZebra={true}
-          onRowClick={this.onRowClick}
-          rowSelection={this.state.rowSelection}
-        >
-          <Table.Column title="Id" dataIndex="id" />
-          <Table.Column title="Title" dataIndex="title.name" />
-          <Table.Column title="Time" dataIndex="time" />
-          <Table.Column cell={this.renderR} width={200} />
-        </Table>
-        <Pagination onChange={this.onChange} className="page-demo" />
+        <ListTable
+          loading={false}
+          data={dataSource(10)}
+          head={[
+            {
+              title: "id",
+              dataIndex:"id"
+            },
+            {
+              title: "标题",
+              dataIndex:"title.name"
+            },
+            {
+              title: "时间",
+              dataIndex:"time"
+            }
+          ]}
+        />
       </div>
     );
   }
