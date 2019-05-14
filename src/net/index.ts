@@ -7,7 +7,7 @@ instance.interceptors.response.use(function(response){
   if(response.status === 200 && response.data.code === -1){
     return response.data.data;
   }else{
-    return Promise.reject(response.data);
+    return Promise.resolve(response.data);
   }
 
 },function(error){

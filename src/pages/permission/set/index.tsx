@@ -1,39 +1,6 @@
 import * as React from "react";
 import { Tree } from "@alifd/next";
-import { observable, reaction, autorun } from "mobx";
 import { observer } from "mobx-react";
-import Store from "./store";
-
-const todos = observable([
-  {
-    title: "Make coffee",
-    done: true
-  },
-  {
-    title: "Find biscuit",
-    done: false
-  }
-]);
-
-// reaction 的正确用法: 对 length 和 title 的变化作出反应
-const reaction2 = reaction(
-  () => todos.map(todo => todo.title),
-  titles => console.log("reaction 2:", titles.join(", "))
-);
-
-// autorun 对它函数中使用的任何东西作出反应
-const autorun1 = autorun(() =>
-  console.log("autorun 1:", todos.map(todo => todo.title).join(", "))
-);
-
-todos.push({ title: "explain reactions", done: false });
-
-todos[0].title = "Make tea";
-
-const store = new Store();
-console.log(store.total);
-store.price = 10;
-console.log(store.total);
 
 const data = [
   {

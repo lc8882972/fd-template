@@ -1,46 +1,40 @@
 import * as React from "react";
-import "./index.scss";
 import { Grid } from "@alifd/next";
 import Form from "components/base/form";
+import axiosInstance from '../../net';
+import { ThemeContext } from '../../store/context';
 
+import "./index.scss";
+const { useEffect, useState, useContext } = React;
 const { Row, Col } = Grid;
-interface IState {
-  form: any[];
-}
 
-class Home extends React.Component<any, IState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      form: []
-    };
+function Home() {
+  const { foreground, background } = useContext(ThemeContext);
 
-    this.getData().then(json => {
-      this.setState({ form: json.data });
-    });
-  }
-  getData = (): Promise<any> => {
-    return fetch("/mock/form.json").then(response => {
-      return response.json();
-    });
-  };
+  console.log(foreground, background);
+  const [formData, setFromData] = useState([]);
+  useEffect(() => {
+    async function fetchFromData() {
+      const resp = await axiosInstance.get('/mock/form.json');
+      console.log(resp);
+      setFromData(resp.data);
+    }
 
-  render() {
-    return (
-      <div className="redux-demo-home">
-        <div className="words">
-          <span>
-            当前页面为 只包含 React-Router 的案例页面， 这里是home路由页{" "}
-          </span>
-        </div>
-        <Row>
-          <Col span="8" style={{ marginLeft: "20px" }}>
-            <Form dataSource={this.state.form} />
-          </Col>
-        </Row>
+    fetchFromData();
+  }, []);
+
+  return (
+    <div className="redux-demo-home">
+      <div className="words">
+        <span>
+          当前页面为 只包含 React-Router 的案例页面， 这里是home路由页{" "}
+        </span>
       </div>
-    );
-  }
+      <Row>
+        <Col span="8" style={{ marginLeft: "20px" }}>
+          <Form dataSource={formData} />
+        </Col>
+      </Row>
+    </div>);
 }
-
 export default Home;
