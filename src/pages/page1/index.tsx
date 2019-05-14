@@ -1,12 +1,12 @@
-import * as React from "react";
-import "./index.scss";
-import { Table, Pagination, Tab, Form, Input } from "@alifd/next";
+import { Form, Input, Pagination, Tab, Table } from "@alifd/next";
 import { RangePicker } from "@alifd/next/lib/date-picker";
 import ListTable from "components/table/index";
+import * as React from "react";
+import "./index.scss";
 
 interface IState {
   loading: boolean;
-  dataSource: Readonly<Array<any>>;
+  dataSource: Readonly<any[]>;
   rowSelection: any;
 }
 
@@ -27,6 +27,15 @@ const dataSource = (j: number) => {
 };
 
 class Page1 extends React.Component<any, IState> {
+
+  public rowSelection = {
+    onChange: this.onChange,
+    getProps: (record: any) => {
+      return {
+        disabled: record.id === 100306660942
+      };
+    }
+  };
   constructor(props: any) {
     super(props);
     this.state = {
@@ -34,10 +43,10 @@ class Page1 extends React.Component<any, IState> {
       loading: false,
       rowSelection: {
         onChange: this.onChangeS.bind(this),
-        onSelect: function(selected: any, record: any, records: any) {
+        onSelect(selected: any, record: any, records: any) {
           console.log("onSelect", selected, record, records);
         },
-        onSelectAll: function(selected: any, records: any) {
+        onSelectAll(selected: any, records: any) {
           console.log("onSelectAll", selected, records);
         },
         selectedRowKeys: [100306660940, 100306660941]
@@ -49,17 +58,17 @@ class Page1 extends React.Component<any, IState> {
   //   fetch(url,{method:'GET'});
   // }
 
-  onRowClick = (record: any, index: number, e: Event) => {
+  public onRowClick = (record: any, index: number, e: Event) => {
     console.log(record);
     console.log(index);
   };
-  onChangeS(ids: any, records: any) {
+  public onChangeS(ids: any, records: any) {
     const { rowSelection } = this.state;
     rowSelection.selectedRowKeys = ids;
     console.log("onChange", ids, records);
     this.setState({ rowSelection });
   }
-  onChange = (currentPage: number) => {
+  public onChange = (currentPage: number) => {
     this.setState({
       loading: true
     });
@@ -70,19 +79,10 @@ class Page1 extends React.Component<any, IState> {
       });
     }, 500);
   };
-
-  rowSelection = {
-    onChange: this.onChange,
-    getProps: (record: any) => {
-      return {
-        disabled: record.id === 100306660942
-      };
-    }
-  };
-  renderR = (value: string, index: number, record: any) => {
+  public renderR = (value: string, index: number, record: any) => {
     return <a>删除({record.id})</a>;
   };
-  render() {
+  public render() {
     return (
       <div className="redux-demo-home">
         <div className="words">
@@ -92,7 +92,7 @@ class Page1 extends React.Component<any, IState> {
         </div>
         <Tab>
           <Tab.Item title="精简查询" key="1">
-            <Form labelAlign="left" inline>
+            <Form labelAlign="left" inline={true}>
               <Form.Item label="date:">
                 <RangePicker />
               </Form.Item>
@@ -102,7 +102,7 @@ class Page1 extends React.Component<any, IState> {
             </Form>
           </Tab.Item>
           <Tab.Item title="精确查询" key="2">
-            <Form labelAlign="left" inline>
+            <Form labelAlign="left" inline={true}>
               <Form.Item label="id:">
                 <Input />
               </Form.Item>

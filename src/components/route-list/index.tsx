@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 interface IRouteListProps{
@@ -7,14 +7,14 @@ interface IRouteListProps{
 }
 
 class RouteList extends React.Component<IRouteListProps> {
-  static propTypes = {
+  public static propTypes = {
     /**
      * route 列表
      */
     routes: PropTypes.array,
   };
 
-  render() {
+  public render() {
     const { routes } = this.props;
     return (
       <Switch>

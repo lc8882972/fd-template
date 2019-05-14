@@ -21,7 +21,7 @@
   "scripts": {
     "start": "cross-env DEV=1 LIVELOAD=1 webpack-dev-server --mode development --config ./webpack.config.dev.js --host 0.0.0.0 --port 8090",
     "build": "webpack --mode production",
-    "lint": "tslint --fix",
+    "lint": "tslint --fix --project ./tsconfig.json",
     "prettier": "prettier src/**/*.scss --write"
   },
   "lint-staged": {
@@ -107,7 +107,7 @@
     "react-hot-loader": "^4.6.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.23.1",
-    "ts-lint": "^4.5.1",
+    "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.17.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.2.2",

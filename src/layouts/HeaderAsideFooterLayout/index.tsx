@@ -1,15 +1,15 @@
-import * as React from "react";
-import { observer }  from 'mobx-react';
+import Breadcrumb from "components/base/breadcrumb";
 import Header from "components/header/index";
 import SideMenu from "components/side-menu/index";
+import { observer }  from 'mobx-react';
+import * as React from "react";
 import { asideMenuConfig } from "../../menuConfig";
-import Breadcrumb from "components/base/breadcrumb";
 
 import "./index.scss";
 
 @observer
 class Layout extends React.Component {
-  render() {
+  public render() {
     return (
       <div className="header-aside-footer-layout">
         <Header defaultSelectedKeys="" />

@@ -10,7 +10,7 @@ interface IState {
 }
 
 class Page2 extends React.Component<any, IState> {
-  btn: HTMLButtonElement | null = null;
+  public btn: HTMLButtonElement | null = null;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -23,25 +23,25 @@ class Page2 extends React.Component<any, IState> {
     });
   }
 
-  getData = (): Promise<any> => {
+  public getData = (): Promise<any> => {
     return fetch("/mock/form.json").then(response => {
       return response.json();
     });
   };
 
-  onClick = () => {
+  public onClick = () => {
     this.setState({
       visible: true
     });
   };
 
-  onClose = () => {
+  public onClose = () => {
     this.setState({
       visible: false
     });
   };
 
-  render() {
+  public render() {
     return (
       <div className="redux-demo-home">
         <div className="words">
@@ -62,8 +62,8 @@ class Page2 extends React.Component<any, IState> {
           visible={this.state.visible}
           safeNode={() => this.btn}
           align="cc cc"
-          hasMask
-          disableScroll
+          hasMask={true}
+          disableScroll={true}
           onRequestClose={this.onClose}
         >
           <div className="overlay-demo">

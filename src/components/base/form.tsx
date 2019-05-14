@@ -1,5 +1,5 @@
+import { Field, Form } from "@alifd/next";
 import * as React from "react";
-import { Form, Field } from "@alifd/next";
 import Item from "./item";
 
 interface IFromProps {
@@ -7,7 +7,7 @@ interface IFromProps {
 }
 
 class From extends React.Component<IFromProps> {
-  field = new Field(this, {
+  public field = new Field(this, {
     onChange: (name: string, value: any) => {
       this.field.setValue(name, value);
     }
@@ -33,7 +33,7 @@ class From extends React.Component<IFromProps> {
 
         <Form.Item wrapperCol={{ offset: 6 }}>
           <Form.Submit
-            validate
+            validate={true}
             type="primary"
             onClick={(v, e) => console.log(v, e)}
             style={{ marginRight: 10 }}

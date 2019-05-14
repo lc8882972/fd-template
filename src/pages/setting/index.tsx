@@ -1,5 +1,5 @@
-import * as React from "react";
 import { Grid } from "@alifd/next";
+import * as React from "react";
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Contaier from "./contaier";
@@ -7,7 +7,7 @@ import Contaier from "./contaier";
 const { Row, Col } = Grid;
 @DragDropContext(HTML5Backend)
 export default class Setting extends React.Component {
-  render() {
+  public render() {
     return (
       <div>
         <Row>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { HashRouter as Router } from 'react-router-dom';
 import RouteList from 'components/route-list';
+import { HashRouter as Router } from 'react-router-dom';
 import routes from './routerConfig';
 import { ThemeContext, themes } from './store/context';
 
@@ -12,7 +12,7 @@ interface IState {
 }
 
 class App extends React.Component<IState> {
-  state = {
+  public state = {
     theme: themes.dark
   }
 

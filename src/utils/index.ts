@@ -18,7 +18,7 @@ export const lowCase = (str: string) => str.replace(/[A-Z]/g, m => `-${m.toLower
 export const getUrlParam = (name: string) => {
   const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
   const r = decodeURIComponent(window.location.search.substr(1)).match(reg);
-  if (r != null) return unescape(r[2]);
+  if (r != null) { return unescape(r[2]); }
   return null;
 };
 

@@ -1,5 +1,5 @@
+import { Pagination, Table } from "@alifd/next";
 import * as React from "react";
-import { Table, Pagination } from "@alifd/next";
 
 interface IProps {
   head: any[];
@@ -8,15 +8,8 @@ interface IProps {
 }
 
 class List extends React.Component<IProps> {
-  renderColumn(cols: any[]) {
-    return cols.map((col, index) => {
-      return (
-        <Table.Column title={col.title} dataIndex={col.dataIndex} key={index} />
-      );
-    });
-  }
 
-  rowSelection = {
+  public rowSelection = {
     onChange: this.onChange,
     getProps: (record: any) => {
       return {
@@ -24,12 +17,19 @@ class List extends React.Component<IProps> {
       };
     },
   };
+  public renderColumn(cols: any[]) {
+    return cols.map((col, index) => {
+      return (
+        <Table.Column title={col.title} dataIndex={col.dataIndex} key={index} />
+      );
+    });
+  }
 
-  onChange(...args: any[]): void {
+  public onChange(...args: any[]): void {
     console.log(args);
   }
 
-  render() {
+  public render() {
     const { data, loading, head } = this.props;
     return (
       <div>

@@ -1,7 +1,7 @@
 // 菜单配置
 // headerMenuConfig：头部导航配置
 // asideMenuConfig：侧边导航配置
-import { observable, autorun, action } from "mobx";
+import { action, autorun, observable } from "mobx";
 
 const headerMenuConfig: any[] = [];
 

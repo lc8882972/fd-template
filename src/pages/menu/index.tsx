@@ -1,6 +1,6 @@
-import * as React from "react";
 import { Tree } from "@alifd/next";
 import { observer, Provider } from "mobx-react";
+import * as React from "react";
 import Store from "./store";
 
 const store = new Store();
@@ -11,22 +11,22 @@ interface IState {
 
 @observer
 export default class List extends React.Component<any, IState> {
-  state = {
+  public state = {
     data: [],
     store
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     store.fetchData();
   }
 
-  render() {
+  public render() {
     return (
       <Tree
-        defaultExpandAll
-        showLine
-        checkable
-        editable
+        defaultExpandAll={true}
+        showLine={true}
+        checkable={true}
+        editable={true}
         dataSource={this.state.store.data}
       />
     );

@@ -1,13 +1,13 @@
 import * as React from "react";
-import * as ReactDom from "react-dom";
 import {
-  DropTarget,
   ConnectDropTarget,
-  DropTargetMonitor,
-  DropTargetConnector
+  DropTarget,
+  DropTargetConnector,
+  DropTargetMonitor
 } from "react-dnd";
-import ItemTypes from "./ItemTypes";
+import * as ReactDom from "react-dom";
 import Box from "./Box";
+import ItemTypes from "./ItemTypes";
 
 const style: React.CSSProperties = {
   height: "12rem",
@@ -30,7 +30,7 @@ export interface DustbinProps {
 
 const list: any[] = [];
 class Dustbin extends React.Component<DustbinProps> {
-  add = (item: any): boolean => {
+  public add = (item: any): boolean => {
     if (item && list.some(i => i.name === item.name)) {
       return false;
     }
@@ -41,13 +41,13 @@ class Dustbin extends React.Component<DustbinProps> {
     return true;
   };
 
-  handleDND = (dragIndex: number, hoverIndex: number) => {
+  public handleDND = (dragIndex: number, hoverIndex: number) => {
     // let tmp = list[dragIndex]; //临时储存文件
     // list.splice(dragIndex, 1); //移除拖拽项
     // list.splice(hoverIndex, 0, tmp); //插入放置项
   };
 
-  render() {
+  public render() {
     const { canDrop, isOver, connectDropTarget } = this.props;
     const isActive = canDrop && isOver;
     let backgroundColor = "#222";
@@ -71,7 +71,7 @@ export default DropTarget(
   ItemTypes.BOX,
   {
     drop: (props: any, monitor, component) => {
-      if (!component) return null;
+      if (!component) { return null; }
 
       if (component.add(monitor.getItem())) {
         return { name: "Dustbin", index: list.length };
@@ -80,7 +80,7 @@ export default DropTarget(
       return undefined
     },
     hover: (props: any, monitor, component) => {
-      if (!component) return null;
+      if (!component) { return null; }
 
       console.log(props, monitor.getItem());
       // return { name: "Dustbin", index: list.length };

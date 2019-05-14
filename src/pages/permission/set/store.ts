@@ -1,8 +1,8 @@
-import { observable, computed } from "mobx";
+import { computed, observable } from "mobx";
 
 class OrderLine {
-  @observable price: number = 0;
-  @observable amount: number = 1;
+  @observable public price: number = 0;
+  @observable public amount: number = 1;
 
   @computed get total(): number {
     return this.price * this.amount;

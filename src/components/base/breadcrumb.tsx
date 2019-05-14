@@ -1,11 +1,11 @@
-import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Breadcrumb } from "@alifd/next";
+import * as React from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
 interface IProps extends RouteComponentProps<any> {}
 
 class Custom extends React.Component<IProps> {
-  renderItem(path: string) {
+  public renderItem(path: string) {
     const array = path.split("/").filter(item => item !== "");
     return array.map((item, index) => {
       return (
@@ -16,7 +16,7 @@ class Custom extends React.Component<IProps> {
     });
   }
 
-  render() {
+  public render() {
     const { match } = this.props;
     return <Breadcrumb>{this.renderItem(match.path)}</Breadcrumb>;
   }

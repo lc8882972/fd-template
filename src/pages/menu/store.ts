@@ -1,11 +1,11 @@
-import { observable, action, runInAction } from "mobx";
+import { action, observable, runInAction } from "mobx";
 import axios from "../../net";
 
 class Store {
-  @observable data = [];
-  @observable state: string = "pending"; // "pending" / "done" / "error"
+  @observable public data = [];
+  @observable public state: string = "pending"; // "pending" / "done" / "error"
   @action
-  fetchData() {
+  public fetchData() {
     axios.get("/mock/menu.json").then(resp => {
       const data:any= resp;
       runInAction(() => {

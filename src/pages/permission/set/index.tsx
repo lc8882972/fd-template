@@ -1,6 +1,6 @@
-import * as React from "react";
 import { Tree } from "@alifd/next";
 import { observer } from "mobx-react";
+import * as React from "react";
 
 const data = [
   {
@@ -98,18 +98,18 @@ interface IState {
 
 @observer
 export default class Set extends React.Component<any, IState> {
-  onCheck(keys: string[], info: any) {
+  public onCheck(keys: string[], info: any) {
     console.log("onCheck->keys:", keys);
     console.log("onCheck->data:", info);
   }
 
-  render() {
+  public render() {
     return (
       <Tree
-        defaultExpandAll
-        showLine
-        checkable
-        editable
+        defaultExpandAll={true}
+        showLine={true}
+        checkable={true}
+        editable={true}
         defaultCheckedKeys={["4", "5"]}
         onCheck={this.onCheck}
         dataSource={menuList}

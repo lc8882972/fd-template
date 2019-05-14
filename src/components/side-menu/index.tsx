@@ -1,7 +1,7 @@
-import * as React from "react";
-import classNames from "classnames";
-import { withRouter, Link, RouteComponentProps } from "react-router-dom";
 import { Nav } from "@alifd/next";
+import classNames from "classnames";
+import * as React from "react";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 
 const { Item, Group, SubNav } = Nav;
 
@@ -11,7 +11,7 @@ interface ISideMenuProps extends RouteComponentProps<any> {
 }
 
 class SideMenu extends React.Component<ISideMenuProps> {
-  static defaultProps = {
+  public static defaultProps = {
     dataSource: []
   };
 
@@ -21,7 +21,7 @@ class SideMenu extends React.Component<ISideMenuProps> {
    * @param {*} dataSource
    * @returns
    */
-  getComponentItems(dataSource: any[]) {
+  public getComponentItems(dataSource: any[]) {
     return dataSource.map(item => {
       if (item.children && item.children.length) {
         if (item.itemType !== "group") {
@@ -45,7 +45,7 @@ class SideMenu extends React.Component<ISideMenuProps> {
     });
   }
 
-  render() {
+  public render() {
     const { match, dataSource, className } = this.props;
 
     if (!dataSource.length) {
@@ -63,7 +63,7 @@ class SideMenu extends React.Component<ISideMenuProps> {
         selectedKeys={[match.path]}
         type="primary"
         activeDirection={null}
-        defaultOpenAll
+        defaultOpenAll={true}
       >
         {this.getComponentItems(dataSource)}
       </Nav>

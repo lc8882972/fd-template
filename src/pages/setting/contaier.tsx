@@ -1,6 +1,6 @@
 import * as React from 'react'
-import Dustbin from './Dustbin'
 import Box from './Box'
+import Dustbin from './Dustbin'
 
 const rowStyle: React.CSSProperties = { overflow: 'hidden', clear: 'both' }
 

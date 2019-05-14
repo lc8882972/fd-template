@@ -1,7 +1,7 @@
-import * as React from 'react';
 // import * as PropTypes from 'prop-types';
 // import * as classNames from 'classnames';
-import { Nav, Balloon, Menu } from '@alifd/next';
+import { Balloon, Menu, Nav } from '@alifd/next';
+import * as React from 'react';
 // import { path, getUrlParam, appData, role, style, showTour, removeTour } from 'utils/index';
 
 import './index.scss';
@@ -22,19 +22,19 @@ class Header extends React.Component<IHeaderProps> {
   //   ]),
   // };
 
-  static defaultProps = {
+  public static defaultProps = {
     fullHeader: true,
   };
 
 
-  header() {
+  public header() {
     return (<div className="header-logo">
       <a href="/">
         <img src="//img.alicdn.com/tfs/TB1pKookmzqK1RjSZFHXXb3CpXa-240-70.png" />
       </a>
     </div>);
   }
-  footer() {
+  public footer() {
     const userinfo = {
       avatarUrl: '//img.alicdn.com/tps/TB1kssgNXXXXXc_aXXXXXXXXXXX-56-56.png',
       displayName: '未登录',
@@ -55,7 +55,7 @@ class Header extends React.Component<IHeaderProps> {
     </div>
     );
   }
-  render() {
+  public render() {
     const { fullHeader, defaultSelectedKeys } = this.props;
 
     const content = (

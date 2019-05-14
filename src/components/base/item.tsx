@@ -1,14 +1,14 @@
-import * as React from "react";
 import {
+  Checkbox,
+  DatePicker,
   Form,
   Input,
-  DatePicker,
-  Select,
-  Checkbox,
   Radio,
-  Upload,
-  Switch
+  Select,
+  Switch,
+  Upload
 } from "@alifd/next";
+import * as React from "react";
 // import * as moment from 'moment';
 const FormItem = Form.Item;
 // moment.locale('zh-cn');
@@ -87,7 +87,7 @@ class Item extends React.Component<IItemProps> {
               <Radio.Group name="radio">
                 <Radio value="apple">apple</Radio>
                 <Radio value="banana">banana</Radio>
-                <Radio disabled value="cherry">
+                <Radio disabled={true} value="cherry">
                   cherry（disabled）
                 </Radio>
               </Radio.Group>
@@ -114,7 +114,7 @@ class Item extends React.Component<IItemProps> {
         {
           return (
             <FormItem {...formItemLayout} label={data.label}>
-              <Switch defaultChecked />
+              <Switch defaultChecked={true} />
             </FormItem>
           );
         }

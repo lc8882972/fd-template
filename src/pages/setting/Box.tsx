@@ -1,9 +1,9 @@
 import * as React from "react";
 import {
-  DragSource,
-  DragSourceMonitor,
   ConnectDragSource,
-  DragSourceConnector
+  DragSource,
+  DragSourceConnector,
+  DragSourceMonitor
 } from "react-dnd";
 import ItemTypes from "./ItemTypes";
 

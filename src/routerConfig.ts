@@ -3,13 +3,13 @@
 // 变量名 routerConfig 为 iceworks 检测关键字，请不要修改名称
 
 import HeaderAsideFooterLayout from 'layouts/HeaderAsideFooterLayout';
+import Help from 'pages/help/index';
 import Home from 'pages/home/index';
+import MenuList from 'pages/menu';
 import Page1 from 'pages/page1/index';
 import Page2 from 'pages/page2/index';
-import Help from 'pages/help/index';
-import Setting from 'pages/setting/index';
 import Permission from 'pages/permission/set';
-import MenuList from 'pages/menu';
+import Setting from 'pages/setting/index';
 
 const routerConfig = [
   {
