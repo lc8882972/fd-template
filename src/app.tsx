@@ -7,11 +7,11 @@ import routes from './routerConfig';
 import './index.scss';
 
 
-class App extends React.Component{
+class App extends React.Component {
 
 
-  public render(){
-    return (  <Router>
+  public render() {
+    return (<Router>
       <RouteList routes={routes} />
     </Router>);
   }
