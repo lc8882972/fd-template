@@ -6,15 +6,13 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SimpleProgressPlugin = require('webpack-simple-progress-plugin');
 const ThemePlugin = require('@alifd/next-theme-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const os = require('os');
-const HappyPack = require('happypack');
 const colors = require('colors');
 
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const DEV = process.env.DEV;
 const LIVELOAD = process.env.LIVELOAD;
-const SINGLE_PAGE = process.env.SINGLE_PAGE;
 const cwd = process.cwd();
 const sourcePath = path.join(__dirname, './src');
 
@@ -131,15 +129,16 @@ const config = {
   //   'moment': 'moment',
   // },
   plugins: [
-    new ForkTsCheckerWebpackPlugin({tsconfig:'./tsconfig.json'}),
+    new ForkTsCheckerWebpackPlugin({ tsconfig: './tsconfig.json' }),
     new ThemePlugin(theme),
     new MiniCssExtractPlugin({
       filename: '[name].bundle.css',
       chunkFilename: '[name].bundle.css',
     }),
     new HtmlWebpackPlugin({
-      template:'./static/index.html'
+      template: './static/index.html'
     }),
+    new BundleAnalyzerPlugin(),
     // 允许错误不打断程序
     new webpack.NoEmitOnErrorsPlugin(),
     // 美化打包进度条

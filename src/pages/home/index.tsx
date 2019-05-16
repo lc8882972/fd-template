@@ -2,21 +2,16 @@ import { Grid } from "@alifd/next";
 import Form from "components/base/form";
 import * as React from "react";
 import axiosInstance from '../../net';
-import { ThemeContext } from '../../store/context';
 
 import "./index.scss";
-const { useEffect, useState, useContext } = React;
+const { useEffect, useState } = React;
 const { Row, Col } = Grid;
 
 function Home() {
-  const { foreground, background } = useContext(ThemeContext);
-
-  console.log(foreground, background);
   const [formData, setFromData] = useState([]);
   useEffect(() => {
     async function fetchFromData() {
       const resp = await axiosInstance.get('/mock/form.json');
-      console.log(resp);
       setFromData(resp.data);
     }
 

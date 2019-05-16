@@ -1,22 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
-const globby = require('globby');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SimpleProgressPlugin = require('webpack-simple-progress-plugin');
+const ThemePlugin = require('@alifd/next-theme-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const os = require('os');
-const HappyPack = require('happypack');
-const colors = require('colors');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const DEV = process.env.DEV;
-const LIVELOAD = process.env.LIVELOAD;
-const SINGLE_PAGE = process.env.SINGLE_PAGE;
 const cwd = process.cwd();
 const sourcePath = path.join(__dirname, './src');
-
-const entry = {};
 
 // 获取 package.json 中的主题配置文件
 let theme = '';
@@ -80,16 +74,16 @@ if (theme) {
 }
 
 const config = {
-  mode: DEV ? 'development' : 'production',
   context: cwd,
+  devtool: false,
   entry: {
     'index': ['./src/index.tsx']
   },
   output: {
-    path: path.resolve(process.env.BUILD_DEST || 'build'),
-    publicPath: 'build',
-    filename: '[name].js',
-    chunkFilename: '[name].js',
+    path: path.resolve(process.env.BUILD_DEST || 'dist'),
+    publicPath: '/',
+    filename: '[name].[hash:8].js',
+    chunkFilename: '[name].[chunkhash:8].js',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -103,13 +97,13 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)?$/,
+        test: /\.(ts|tsx)?$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: 'happypack/loader',
+            loader: 'babel-loader',
             options: {
-              id: 'js',
+              cacheDirectory: true,
             },
           },
         ],
@@ -118,40 +112,29 @@ const config = {
         test: /\.scss/,
         use: [
           MiniCssExtractPlugin.loader,
-          'happypack/loader?id=scss',
+          ...scssLoader
         ],
       },
     ],
   },
-  // externals: {
-  //   'react': 'React',
-  //   'react-dom': 'ReactDOM',
-  //   'moment': 'moment',
-  // },
   plugins: [
-    new HappyPack({
-      debug: true,
-      id: 'js',
-      loaders: [{
-        path: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-        },
-      }],
-      threadPool: happyThreadPool,
-    }),
-
-    new HappyPack({
-      id: 'scss',
-      threadPool: happyThreadPool,
-      loaders: scssLoader,
-    }),
-
-    new ForkTsCheckerWebpackPlugin({tsconfig:'./tsconfig.json'}),
-
+    new ThemePlugin(theme),
+    // new webpack.ContextReplacementPlugin(
+    //   /moment[\\\/]locale$/,
+    //   /^\.\/(zh-cn)$/
+    // ),
     new MiniCssExtractPlugin({
-      filename: '[name].bundle.css',
-      chunkFilename: '[name].bundle.css',
+      filename: '[name].bundle.[contenthash:8].css',
+      chunkFilename: '[name].bundle.[chunkhash:8].css',
+    }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.bundle\..*\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true,
+    }),
+    new HtmlWebpackPlugin({
+      template: './static/index.html'
     }),
     // 允许错误不打断程序
     new webpack.NoEmitOnErrorsPlugin(),
@@ -164,6 +147,7 @@ const config = {
       },
       __DEV__: JSON.stringify(JSON.parse(DEV ? 'true' : 'false')),
     }),
+    new BundleAnalyzerPlugin()
   ],
   optimization: {
     splitChunks: {
@@ -177,41 +161,5 @@ const config = {
     },
   },
 };
-
-if ((LIVELOAD && LIVELOAD !== 0) && LIVELOAD !== '0') {
-  Object.keys(config.entry).forEach((key) => {
-    config.entry[key].unshift('webpack-dev-server/client?/');
-  });
-}
-
-// 发布状态
-if (!DEV) {
-  config.plugins.push(
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.bundle\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: { removeAll: true } },
-      canPrint: true,
-    })
-  );
-} else {
-  config.devServer = {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': 'true',
-    },
-    // contentBase: sourcePath,
-    // hot: true,
-    // inline: true,
-    stats: {
-      colors: true,
-      chunks: false,
-      children: false,
-      modules: false,
-      chunkModules: false,
-    },
-  };
-  config.devtool = 'source-map';
-}
 
 module.exports = config;

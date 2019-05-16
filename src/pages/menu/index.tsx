@@ -1,5 +1,5 @@
 import { Tree } from "@alifd/next";
-import { observer, Provider } from "mobx-react";
+import { observer } from "mobx-react";
 import * as React from "react";
 import Store from "./store";
 
