@@ -1,4 +1,6 @@
 {
+  "templateType": "custom",
+  "title": "fd-template",
   "name": "@alifd/template-next-single-page",
   "description": "支持 fusion主题配置的默认模板",
   "version": "1.0.0",
@@ -12,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/alibaba-fusion/materials/tree/master/react-materials/scaffolds/next-single-page"
+    "url": "https://github.com/lc8882972/fd-template"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org",
@@ -49,7 +51,6 @@
   "tnpm": {
     "mode": "npminstall"
   },
-  "peerDependencies": {},
   "dependencies": {
     "@alifd/next": "^1.x",
     "@alifd/theme-2": "*",
@@ -63,7 +64,6 @@
     "prop-types": "^15.6.0",
     "react": "^16.3.0",
     "react-dnd": "^7.4.5",
-    "react-dnd-html5-backend": "^7.4.4",
     "react-dom": "^16.3.0",
     "react-router-dom": "^4.3.1"
   },
@@ -128,7 +128,5 @@
     "title": "template-next-single-page",
     "screenshot": "https://img.alicdn.com/tfs/TB1ntFrq5rpK1RjSZFhXXXSdXXa-2710-1638.png",
     "demopage": "https://unpkg.com/@alifd/template-next-single-page/build/index.html"
-  },
-  "templateType": "custom",
-  "title": "adc"
+  }
 }

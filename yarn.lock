@@ -5984,12 +5984,6 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dnd-html5-backend@^7.4.4:
-  version "7.4.4"
-  resolved "http://registry.npm.taobao.org/react-dnd-html5-backend/download/react-dnd-html5-backend-7.4.4.tgz#3372e5af4af24f680cd75900c782606539c01220"
-  dependencies:
-    dnd-core "^7.4.4"
-
 react-dnd@^7.4.5:
   version "7.4.5"
   resolved "http://registry.npm.taobao.org/react-dnd/download/react-dnd-7.4.5.tgz#cb4a2c97cd81f514d892c6cc2f020908ca7382a5"
