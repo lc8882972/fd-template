@@ -1,5 +1,4 @@
 node_modules
-npm-debug.log
 Dockerfile*
 docker-compose*
 .dockerignore
@@ -10,4 +9,3 @@ docker-compose*
 */obj
 README.md
 LICENSE
-.vscode

@@ -1,52 +1,48 @@
 import * as React from "react";
 import {
-  ConnectDragSource,
   DragSource,
-  DragSourceConnector,
-  DragSourceMonitor,
-  ConnectDropTarget,
   DropTarget,
-  DropTargetConnector,
+  ConnectDropTarget,
+  ConnectDragSource,
   DropTargetMonitor,
-  XYCoord
+  DropTargetConnector,
+  DragSourceConnector,
+  DragSourceMonitor
 } from "react-dnd";
 import ItemTypes from "./ItemTypes";
-const { useRef, useImperativeHandle } = React;
+import { XYCoord } from "dnd-core";
 
-const style: React.CSSProperties = {
+const style = {
   border: "1px dashed gray",
-  backgroundColor: "white",
   padding: "0.5rem 1rem",
-  marginRight: "1.5rem",
-  marginBottom: "1.5rem",
-  cursor: "move",
+  marginBottom: ".5rem",
+  backgroundColor: "white",
+  cursor: "move"
 };
 
-export interface BoxProps {
+const { useImperativeHandle, useRef } = React;
+
+export interface CardProps {
   id: any;
-  name: string;
+  text: string;
   index: number;
+  moveCard: (dragIndex: number, hoverIndex: number) => void;
+  findCard: (id: string) => { index: number };
   isDragging: boolean;
   connectDragSource: ConnectDragSource;
   connectDropTarget: ConnectDropTarget;
-  moveCard: (dragIndex: number, hoverIndex: number) => void;
-  addBox: (box: any) => void;
-}
-export interface BoxInstance {
-  name: string;
-  index: number;
 }
 
-export interface BoxDOMInstance {
+interface CardInstance {
   getNode(): HTMLDivElement | null;
 }
 
-const Box: React.RefForwardingComponent<
+const Card: React.RefForwardingComponent<
   HTMLDivElement,
-  BoxProps
+  CardProps
 > = React.forwardRef(
   (
-    { name, isDragging, connectDragSource, connectDropTarget }: BoxProps,
+    { text, isDragging, connectDragSource, connectDropTarget }: CardProps,
     ref
   ) => {
     const elementRef = useRef(null);
@@ -54,25 +50,28 @@ const Box: React.RefForwardingComponent<
     connectDropTarget(elementRef);
 
     const opacity = isDragging ? 0 : 1;
-    useImperativeHandle<{}, BoxDOMInstance>(ref, () => ({
+    useImperativeHandle<{}, CardInstance>(ref, () => ({
       getNode: () => elementRef.current
     }));
     return (
       <div ref={elementRef} style={{ ...style, opacity }}>
-        {name}
+        {text}
       </div>
     );
   }
 );
 
 export default DropTarget(
-  ItemTypes.BOX,
+  ItemTypes.CARD,
   {
-    hover(props: BoxProps, monitor: DropTargetMonitor, component) {
+    hover(
+      props: CardProps,
+      monitor: DropTargetMonitor,
+      component: CardInstance
+    ) {
       if (!component) {
         return null;
       }
-
       // node = HTML Div element from imperative API
       const node = component.getNode();
       if (!node) {
@@ -114,9 +113,6 @@ export default DropTarget(
         return;
       }
 
-      if(!props.moveCard){
-        return null;
-      }
       // Time to actually perform the action
       props.moveCard(dragIndex, hoverIndex);
 
@@ -134,23 +130,16 @@ export default DropTarget(
   })
 )(
   DragSource(
-    ItemTypes.BOX,
+    ItemTypes.CARD,
     {
-      beginDrag: (props: BoxProps) => {
-        return { name: props.name, index: props.index };
-      },
-      endDrag(props: BoxProps, monitor: DragSourceMonitor) {
-        // const item = monitor.getItem();
-        // console.log(item);
-        // const dropResult = monitor.getDropResult();
-        // if (dropResult) {
-        //   alert(`You dropped ${item.name} into ${dropResult.name}!`);
-        // }
-      }
+      beginDrag: (props: CardProps) => ({
+        id: props.id,
+        index: props.index
+      })
     },
     (connect: DragSourceConnector, monitor: DragSourceMonitor) => ({
       connectDragSource: connect.dragSource(),
       isDragging: monitor.isDragging()
     })
-  )(Box)
+  )(Card)
 );

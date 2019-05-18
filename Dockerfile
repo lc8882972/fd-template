@@ -1,12 +1,12 @@
-FROM node:10.13-alpine
-ENV NODE_ENV production
-ENV registry https://registry.npm.taobao.org
-ENV SASS_BINARY_SITE https://npm.taobao.org/mirrors/node-sass/
-# MAINTAINER GuoYan 410115424@qq.com
-# WORKDIR /usr/src/app
-
-RUN npm run install --production --silent
-RUN npm run build
-COPY ["package.json", "dist","static","./"]
+FROM maven:3.6.1-jdk-8-alpine
+WORKDIR /usr/src/app
+RUN echo "Asia/shanghai" > /etc/timezone
+COPY pom.xml ./
+RUN mvn validate
+COPY . .
+RUN mvn package spring-boot:repackage
+RUN ls
+RUN cp ./target/*.jar ./app.jar
+VOLUME /tmp
 EXPOSE 9000
-CMD npm run server
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","-Duser.timezone=Asia/Shanghai","./app.jar"]
