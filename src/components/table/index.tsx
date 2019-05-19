@@ -1,5 +1,6 @@
-import { Pagination, Table } from "@alifd/next";
 import * as React from "react";
+import { Pagination, Table } from "@alifd/next";
+
 
 const { useCallback, useState } = React;
 
@@ -17,6 +18,15 @@ function renderColumn(cols: any[]) {
   });
 }
 
+const render = (value, index, record) => {
+  return (
+    <>
+      <a href="javascript:;">编辑</a>
+      <span style={{ margin: '0 10px' }}>|</span>
+      <a href="javascript:;">删除</a>
+    </>
+  );
+};
 
 function List({ data, loading, head }: IProps) {
 
@@ -42,6 +52,7 @@ function List({ data, loading, head }: IProps) {
         rowSelection={rowSelection}
       >
         {renderColumn(head)}
+        <Table.Column cell={render} title="操作" />
       </Table>
       <Pagination className="page-demo" total={data.length} pageSize={5} />
     </div>

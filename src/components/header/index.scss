@@ -1,14 +1,19 @@
-/** 
+/**
  * designtoken 设计标注见 https://fusion.design/design/tokens
  */
 
 .header {
-  background: $nav-primary-bg-color;
+  // background: $nav-primary-bg-color;
   z-index: 1;
+  padding: 10px 0;
 
   .header-nav {
     width: 100%;
-    padding: 0 40px;
+    padding: 0 20px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+
     .next-menu-footer {
       display: flex;
       align-items: center;

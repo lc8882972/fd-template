@@ -5,7 +5,8 @@
     width: 200px;
     height: 100%;
     overflow-y: scroll;
-    background: $nav-primary-bg-color;
+    background: transparent;
+    border: none;
   }
   &-main {
     flex: 1;

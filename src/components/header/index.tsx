@@ -1,12 +1,7 @@
-// import * as PropTypes from 'prop-types';
-// import * as classNames from 'classnames';
 import { Balloon, Menu, Nav } from '@alifd/next';
 import * as React from 'react';
-// import { path, getUrlParam, appData, role, style, showTour, removeTour } from 'utils/index';
 
 import './index.scss';
-
-// const { Item } = Nav;
 
 interface IHeaderProps{
   fullHeader: boolean | null,
@@ -14,18 +9,10 @@ interface IHeaderProps{
 }
 
 class Header extends React.Component<IHeaderProps> {
-  // static propTypes = {
-  //   fullHeader: PropTypes.bool,
-  //   defaultSelectedKeys: PropTypes.oneOfType([
-  //     PropTypes.string,
-  //     PropTypes.array,
-  //   ]),
-  // };
 
   public static defaultProps = {
     fullHeader: true,
   };
-
 
   public header() {
     return (<div className="header-logo">
@@ -61,15 +48,13 @@ class Header extends React.Component<IHeaderProps> {
     const content = (
       <Nav
         direction="hoz"
-        type="primary"
         activeDirection={null}
         hozAlign="right"
         defaultSelectedKeys={defaultSelectedKeys}
         header={this.header()}
         footer={this.footer()}
         className="header-nav"
-      >
-      </Nav>);
+      />);
 
     return (
       <div className="header" id="header">

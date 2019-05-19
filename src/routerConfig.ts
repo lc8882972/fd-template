@@ -10,6 +10,7 @@ import Page1 from 'pages/page1/index';
 import Page2 from 'pages/page2/index';
 import Permission from 'pages/permission/set';
 import Setting from 'pages/setting/index';
+import UForm from 'pages/uform/index';
 
 const routerConfig = [
   {
@@ -52,6 +53,12 @@ const routerConfig = [
     exact: true,
     layout: HeaderAsideFooterLayout,
     component: MenuList,
+  },
+  {
+    path: '/uform',
+    exact: true,
+    layout: HeaderAsideFooterLayout,
+    component: UForm,
   },
 ];
 

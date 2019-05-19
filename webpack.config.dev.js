@@ -92,18 +92,19 @@ const config = {
     chunkFilename: '[name].js',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.ts', '.tsx'],
     alias: {
       components: path.join(__dirname, 'src/components'),
       layouts: path.join(__dirname, 'src/layouts'),
       utils: path.join(__dirname, 'src/utils'),
       pages: path.join(__dirname, 'src/pages'),
+      'react-dom': '@hot-loader/react-dom',
     },
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)?$/,
+        test: /\.(js|ts|tsx)?$/,
         exclude: /node_modules/,
         use: [
           {
@@ -121,6 +122,13 @@ const config = {
           ...scssLoader
         ],
       },
+      {
+        test: /\.css/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
+      },
     ],
   },
   // externals: {
@@ -129,7 +137,8 @@ const config = {
   //   'moment': 'moment',
   // },
   plugins: [
-    new ForkTsCheckerWebpackPlugin({ tsconfig: './tsconfig.json' }),
+    new ForkTsCheckerWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new ThemePlugin(theme),
     new MiniCssExtractPlugin({
       filename: '[name].bundle.css',
@@ -138,7 +147,6 @@ const config = {
     new HtmlWebpackPlugin({
       template: './static/index.html'
     }),
-    new BundleAnalyzerPlugin(),
     // 允许错误不打断程序
     new webpack.NoEmitOnErrorsPlugin(),
     // 美化打包进度条
@@ -187,7 +195,7 @@ if (!DEV) {
       'Access-Control-Allow-Credentials': 'true',
     },
     // contentBase: sourcePath,
-    // hot: true,
+    hot: true,
     // inline: true,
     stats: {
       colors: true,

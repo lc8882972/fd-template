@@ -19,34 +19,36 @@ const style: React.CSSProperties = {
   padding: "0.5rem 1rem",
   marginRight: "1.5rem",
   marginBottom: "1.5rem",
-  cursor: "move",
+  cursor: "move"
 };
 
-export interface BoxProps {
+export interface IBoxProps {
   id: any;
   name: string;
   index: number;
+  backgroundColor: string
   isDragging: boolean;
   connectDragSource: ConnectDragSource;
   connectDropTarget: ConnectDropTarget;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   addBox: (box: any) => void;
 }
-export interface BoxInstance {
+export interface IBoxInstance {
   name: string;
   index: number;
+  backgroundColor: string;
 }
 
-export interface BoxDOMInstance {
+export interface IBoxDOMInstance {
   getNode(): HTMLDivElement | null;
 }
 
 const Box: React.RefForwardingComponent<
   HTMLDivElement,
-  BoxProps
+  IBoxProps
 > = React.forwardRef(
   (
-    { name, isDragging, connectDragSource, connectDropTarget }: BoxProps,
+    { name, backgroundColor, isDragging, connectDragSource, connectDropTarget }: IBoxProps,
     ref
   ) => {
     const elementRef = useRef(null);
@@ -54,11 +56,11 @@ const Box: React.RefForwardingComponent<
     connectDropTarget(elementRef);
 
     const opacity = isDragging ? 0 : 1;
-    useImperativeHandle<{}, BoxDOMInstance>(ref, () => ({
+    useImperativeHandle<{}, IBoxDOMInstance>(ref, () => ({
       getNode: () => elementRef.current
     }));
     return (
-      <div ref={elementRef} style={{ ...style, opacity }}>
+      <div ref={elementRef} style={{ ...style, backgroundColor, opacity }}>
         {name}
       </div>
     );
@@ -68,7 +70,7 @@ const Box: React.RefForwardingComponent<
 export default DropTarget(
   ItemTypes.BOX,
   {
-    hover(props: BoxProps, monitor: DropTargetMonitor, component) {
+    hover(props: IBoxProps, monitor: DropTargetMonitor, component) {
       if (!component) {
         return null;
       }
@@ -114,7 +116,7 @@ export default DropTarget(
         return;
       }
 
-      if(!props.moveCard){
+      if (!props.moveCard) {
         return null;
       }
       // Time to actually perform the action
@@ -136,10 +138,10 @@ export default DropTarget(
   DragSource(
     ItemTypes.BOX,
     {
-      beginDrag: (props: BoxProps) => {
+      beginDrag: (props: IBoxProps) => {
         return { name: props.name, index: props.index };
       },
-      endDrag(props: BoxProps, monitor: DragSourceMonitor) {
+      endDrag(props: IBoxProps, monitor: DragSourceMonitor) {
         // const item = monitor.getItem();
         // console.log(item);
         // const dropResult = monitor.getDropResult();

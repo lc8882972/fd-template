@@ -11,17 +11,15 @@ interface IState {
 
 const dataSource = (j: number) => {
   const result = [];
+  const date = new Date().toDateString();
   for (let i = 0; i < 10; i++) {
     result.push({
-      title: {
-        name: `Quotation for 1PCS Nano ${3 + i}.0 controller compatible`
-      },
+      title: `Quotation for 1PCS Nano ${3 + i}.0 controller compatible`,
       id: 100306660940 + i + j,
-      time: 2000 + j
+      time: date,
+      status: 1,
     });
   }
-
-  // console.log(JSON.stringify(result));
   return result;
 };
 
@@ -32,7 +30,11 @@ const headData = [
   },
   {
     title: "标题",
-    dataIndex: "title.name"
+    dataIndex: "title"
+  },
+  {
+    title: "状态",
+    dataIndex: "status"
   },
   {
     title: "时间",

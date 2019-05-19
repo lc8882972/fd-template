@@ -15,8 +15,9 @@
     "lib": [
       "es6",
       "es7",
-      "dom"
-    ]
+      "dom",
+    ],
+    "baseUrl": "./src/"
   },
   "include": [
     "src/",

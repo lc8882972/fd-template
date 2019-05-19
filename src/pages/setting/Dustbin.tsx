@@ -6,7 +6,7 @@ import {
   DropTargetMonitor
 } from "react-dnd";
 import update from "immutability-helper";
-import Box, { BoxInstance } from "./Box";
+import Box, { IBoxInstance } from "./Box";
 import ItemTypes from "./ItemTypes";
 
 const style: React.CSSProperties = {
@@ -29,7 +29,7 @@ interface IDustbinProps {
 }
 
 interface IDustbinState {
-  list: BoxInstance[];
+  list: IBoxInstance[];
 }
 
 class Dustbin extends React.Component<IDustbinProps, IDustbinState> {
@@ -40,12 +40,13 @@ class Dustbin extends React.Component<IDustbinProps, IDustbinState> {
     };
   }
 
-  public add = (item: BoxInstance): void => {
+  public add = (item: IBoxInstance): void => {
     if (item && this.state.list.some((i: any) => i.name === item.name)) {
       return;
     }
     const list = this.state.list.slice();
     item.index = this.state.list.length;
+    item.backgroundColor = '#000';
     list.push(item);
 
     this.setState({ list });
@@ -63,6 +64,8 @@ class Dustbin extends React.Component<IDustbinProps, IDustbinState> {
 
   public render() {
     const { canDrop, isOver, connectDropTarget } = this.props;
+
+    console.log(canDrop, isOver);
     const isActive = canDrop && isOver;
     let backgroundColor = "#222";
     if (isActive) {
@@ -90,20 +93,11 @@ export default DropTarget(
       if (!component) {
         return null;
       }
-      console.log("drop", monitor.getItem());
       const list = component.state.list;
       component.add(monitor.getItem());
-      // if (component.add(monitor.getItem())) {
-      return { name: "Dustbin", index: list.length };
-      // }
 
-      // return undefined;
-    },
-    hover: (props: any, monitor, component) => {
-      if (!component) {
-        return null;
-      }
-      return undefined;
+      return { name: "Dustbin", index: list.length };
+
     }
   },
   (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({

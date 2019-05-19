@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { hot } from 'react-hot-loader/root';
 import RouteList from 'components/route-list';
 import { HashRouter as Router } from 'react-router-dom';
 import routes from './routerConfig';
@@ -21,9 +21,9 @@ class App extends React.Component<IState> {
       <ThemeContext.Provider value={this.state.theme}>
         <Router>
           <RouteList routes={routes} />
-        </Router>)
-    </ThemeContext.Provider>)
+        </Router>
+      </ThemeContext.Provider>)
   }
 }
 
-export default App;
+export default hot(App);
