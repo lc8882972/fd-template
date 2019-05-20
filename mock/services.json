@@ -1,0 +1,122 @@
+{
+  "code": 200,
+  "message": "SUCCESS",
+  "data": {
+    "head": [
+      {
+        "index": 2,
+        "name": "name",
+        "caption": "service名称",
+        "dataType": "string"
+      },
+      {
+        "index": 3,
+        "name": "caption",
+        "caption": "中文名",
+        "dataType": "string"
+      },
+      {
+        "index": 4,
+        "name": "description",
+        "caption": "描述",
+        "dataType": "string"
+      },
+      {
+        "index": 1,
+        "name": "id",
+        "caption": "id",
+        "dataType": "id"
+      }
+    ],
+    "body": {
+      "current": 1,
+      "total": 2,
+      "list": [
+        {
+          "pageButton": null,
+          "name": "generalManager",
+          "caption": "页面请求综合管理",
+          "description": null,
+          "id": "100001",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"1\"}"
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/1",
+              "urlFollowField": "id",
+              "dataParam": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceRemove/",
+              "url": "/generalManager/matrix/myRequest/serviceRemove/1",
+              "urlFollowField": "id",
+              "dataParam": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "organization",
+          "caption": "用户",
+          "description": null,
+          "id": "100002",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2\"}"
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2",
+              "urlFollowField": "id",
+              "dataParam": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceRemove/",
+              "url": "/generalManager/matrix/myRequest/serviceRemove/2",
+              "urlFollowField": "id",
+              "dataParam": null
+            }
+          ]
+        }
+      ],
+      "pageSize": 20
+    },
+    "topButtons": [
+      {
+        "name": "新建",
+        "area": "top",
+        "type": "pop_form",
+        "originalUrl": "/generalManager/matrix/myRequest/serviceForm",
+        "url": "/generalManager/matrix/myRequest/serviceForm",
+        "urlFollowField": null,
+        "dataParam": null
+      }
+    ]
+  }
+}

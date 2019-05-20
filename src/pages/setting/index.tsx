@@ -24,28 +24,28 @@ const boxs: IBoxInstance[] = [
 ];
 
 const { Row, Col } = Grid;
-@DragDropContext(HTML5Backend)
-export default class Setting extends React.Component {
 
+function Page() {
 
-  public render() {
-    return (
-      <div>
-        <Row>
-          <Col span="4">
-            <p>页面配置选项</p>
-            <div>
-              {boxs.map((item) => <Box key={item.index} {...item} />)}
-            </div>
-          </Col>
-          <Col span="20">
+  return (
+    <div>
+      <Row>
+        <Col span="4">
+          <p>页面配置选项</p>
+          <div>
+            {boxs.map((item) => <Box key={item.index} {...item} />)}
+          </div>
+        </Col>
+        <Col span="20">
 
-            <p>页面配置结果</p>
-            <Contaier />
+          <p>页面配置结果</p>
+          <Contaier />
 
-          </Col>
-        </Row>
-      </div>
-    );
-  }
+        </Col>
+      </Row>
+    </div>
+  );
 }
+
+export default DragDropContext(HTML5Backend)(Page);
+
