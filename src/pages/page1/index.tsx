@@ -1,97 +1,95 @@
+import * as React from "react";
 import { Form, Input, Tab } from "@alifd/next";
 import { RangePicker } from "@alifd/next/lib/date-picker";
 import ListTable from "components/table/index";
-import * as React from "react";
+import axios from '../../net/index';
+import { IAction, IService, IDataBody, IHead } from '../../types';
+
 import "./index.scss";
 
-interface IState {
-  loading: boolean;
-  dataSource: Readonly<any[]>;
+const { useEffect, useReducer } = React;
+
+const fetchData = (parms: any): Promise<any> => {
+  return axios.get('/mock/services.json');
 }
 
-const dataSource = (j: number) => {
-  const result = [];
-  const date = new Date().toDateString();
-  for (let i = 0; i < 10; i++) {
-    result.push({
-      title: `Quotation for 1PCS Nano ${3 + i}.0 controller compatible`,
-      id: 100306660940 + i + j,
-      time: date,
-      status: 1,
-    });
-  }
-  return result;
+interface IState {
+  isLoading: boolean,
+  body: IDataBody,
+  head: IHead[],
+  topButtons: []
+}
+
+const initialState = {
+  isLoading: true,
+  body: {
+    list: [],
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  },
+  head: [],
+  topButtons: []
 };
 
-const headData = [
-  {
-    title: "id",
-    dataIndex: "id"
-  },
-  {
-    title: "标题",
-    dataIndex: "title"
-  },
-  {
-    title: "状态",
-    dataIndex: "status"
-  },
-  {
-    title: "时间",
-    dataIndex: "time"
-  }
-];
-class Page1 extends React.Component<any, IState> {
-
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      dataSource: dataSource(10),
-      loading: false,
-    };
-  }
-
-  public render() {
-    return (
-      <div className="redux-demo-home">
-        <div className="words">
-          <span>
-            当前页面为 只包含 React-Router 的案例页面， 这里是Page1路由页{" "}
-          </span>
-        </div>
-        <Tab>
-          <Tab.Item title="精简查询" key="1">
-            <Form labelAlign="left" inline={true}>
-              <Form.Item label="date:">
-                <RangePicker />
-              </Form.Item>
-              <Form.Item>
-                <Form.Submit>Submit</Form.Submit>
-              </Form.Item>
-            </Form>
-          </Tab.Item>
-          <Tab.Item title="精确查询" key="2">
-            <Form labelAlign="left" inline={true}>
-              <Form.Item label="id:">
-                <Input />
-              </Form.Item>
-              <Form.Item label="date:">
-                <RangePicker />
-              </Form.Item>
-              <Form.Item>
-                <Form.Submit>Submit</Form.Submit>
-              </Form.Item>
-            </Form>
-          </Tab.Item>
-        </Tab>
-        <ListTable
-          loading={false}
-          data={dataSource(10)}
-          head={headData}
-        />
-      </div>
-    );
+function reducer(state: IState, action: IAction) {
+  console.log(action.payload);
+  switch (action.type) {
+    case 'success':
+      return Object.assign(state, action.payload, { isLoading: false });
+    case 'error':
+      return Object.assign(state, initialState);
+    default:
+      throw new Error();
   }
 }
 
-export default Page1;
+function Page() {
+
+  const [state, dispatch] = useReducer<IState, IAction>(reducer, initialState as IState);
+  const parmas = {
+    page: 1,
+    pageCount: 10,
+  }
+  useEffect(() => {
+    fetchData(parmas).then(resp => {
+      dispatch({ type: 'success', payload: resp.data } as IAction);
+    });
+  });
+  return (
+    <div className="redux-demo-home">
+      <Tab>
+        <Tab.Item title="精简查询" key="1">
+          <Form labelAlign="left" inline={true}>
+            <Form.Item label="date:">
+              <RangePicker />
+            </Form.Item>
+            <Form.Item>
+              <Form.Submit>Submit</Form.Submit>
+            </Form.Item>
+          </Form>
+        </Tab.Item>
+        <Tab.Item title="精确查询" key="2">
+          <Form labelAlign="left" inline={true}>
+            <Form.Item label="id:">
+              <Input />
+            </Form.Item>
+            <Form.Item label="date:">
+              <RangePicker />
+            </Form.Item>
+            <Form.Item>
+              <Form.Submit>Submit</Form.Submit>
+            </Form.Item>
+          </Form>
+        </Tab.Item>
+      </Tab>
+      <ListTable
+        loading={state.isLoading}
+        data={state.body}
+        head={state.head}
+      />
+    </div>
+  );
+
+}
+export default Page;
