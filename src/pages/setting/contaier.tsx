@@ -3,10 +3,14 @@ import Dustbin from './Dustbin';
 
 const rowStyle: React.CSSProperties = { overflow: 'hidden', clear: 'both' }
 
-const Container: React.FC = () => (
+interface IProps {
+  fields: any[]
+}
+
+const Container: React.FC<IProps> = ({ fields }: IProps) => (
   <div>
     <div style={rowStyle}>
-      <Dustbin />
+      <Dustbin fields={fields} />
     </div>
   </div>
 )

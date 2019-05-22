@@ -5,8 +5,8 @@ import {
   DropTargetConnector,
   DropTargetMonitor
 } from "react-dnd";
-import update from "immutability-helper";
-import Box, { IBoxInstance } from "./Box";
+
+import Box from "./Box";
 import ItemTypes from "./ItemTypes";
 
 const style: React.CSSProperties = {
@@ -23,80 +23,46 @@ const style: React.CSSProperties = {
 };
 
 interface IDustbinProps {
+  fields: any[],
+  addField: (field: any) => void,
+  moveField: (id: string, atIndex: number) => void,
+  removeField: (field: any) => void,
   canDrop: boolean;
   isOver: boolean;
   connectDropTarget: ConnectDropTarget;
 }
 
-interface IDustbinState {
-  list: IBoxInstance[];
-}
+function Dustbin({ fields, moveField, canDrop, isOver, connectDropTarget }: IDustbinProps) {
 
-class Dustbin extends React.Component<IDustbinProps, IDustbinState> {
-  constructor(porps: IDustbinProps) {
-    super(porps);
-    this.state = {
-      list: []
-    };
+  const isActive = canDrop && isOver;
+  let backgroundColor = "#222";
+  if (isActive) {
+    backgroundColor = "darkgreen";
+  } else if (canDrop) {
+    backgroundColor = "darkkhaki";
   }
 
-  public add = (item: IBoxInstance): void => {
-    if (item && this.state.list.some((i: any) => i.name === item.name)) {
-      return;
-    }
-    const list = this.state.list.slice();
-    item.index = this.state.list.length;
-    item.backgroundColor = '#000';
-    list.push(item);
 
-    this.setState({ list });
-  };
-
-  public moveCard = (dragIndex: number, hoverIndex: number) => {
-    const list = this.state.list;
-    const dragCard = list[dragIndex];
-    const newList = update(list, {
-      $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
-    });
-
-    this.setState({ list: newList });
-  };
-
-  public render() {
-    const { canDrop, isOver, connectDropTarget } = this.props;
-
-    console.log(canDrop, isOver);
-    const isActive = canDrop && isOver;
-    let backgroundColor = "#222";
-    if (isActive) {
-      backgroundColor = "darkgreen";
-    } else if (canDrop) {
-      backgroundColor = "darkkhaki";
-    }
-
-    return connectDropTarget(
-      <div style={{ ...style, backgroundColor }}>
-        {this.state.list.map((item, i) => {
-          return (
-            <Box name={item.name} key={i} index={i} moveCard={this.moveCard} />
-          );
-        })}
-      </div>
-    );
-  }
+  return connectDropTarget(
+    <div style={{ ...style, backgroundColor }}>
+      {fields.map((item: any, i: number) => {
+        return (
+          <Box key={i} index={i} {...item} />
+        );
+      })}
+    </div>
+  );
 }
 
 export default DropTarget(
   ItemTypes.BOX,
   {
-    drop: (props: any, monitor, component: Dustbin) => {
-      if (!component) {
-        return null;
-      }
-      const list = component.state.list;
-      component.add(monitor.getItem());
+    drop: (props: any, monitor, component) => {
 
-      return { name: "Dustbin", index: list.length };
+      const { addField, name, type, description } = props;
+      addField(monitor.getItem());
+
+      return { name, type, description };
 
     }
   },

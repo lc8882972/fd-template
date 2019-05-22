@@ -1,0 +1,30 @@
+{
+  "code": 200,
+  "message": "SUCCESS",
+  "data": {
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "属性"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "中文描述"
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": "链接地址"
+      }
+    ],
+    "pageFields": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "属性"
+      }
+    ]
+  }
+}

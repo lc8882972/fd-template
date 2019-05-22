@@ -1,48 +1,54 @@
 import * as React from "react";
 import {
-  DragSource,
-  DropTarget,
-  ConnectDropTarget,
   ConnectDragSource,
-  DropTargetMonitor,
-  DropTargetConnector,
+  DragSource,
   DragSourceConnector,
-  DragSourceMonitor
+  DragSourceMonitor,
+  ConnectDropTarget,
+  DropTarget,
+  DropTargetConnector,
+  DropTargetMonitor,
 } from "react-dnd";
 import ItemTypes from "./ItemTypes";
-import { XYCoord } from "dnd-core";
+const { useRef, useImperativeHandle } = React;
 
-const style = {
+const style: React.CSSProperties = {
   border: "1px dashed gray",
-  padding: "0.5rem 1rem",
-  marginBottom: ".5rem",
   backgroundColor: "white",
+  padding: "0.5rem 1rem",
+  marginRight: "1.5rem",
+  marginBottom: "1.5rem",
   cursor: "move"
 };
 
-const { useImperativeHandle, useRef } = React;
-
-export interface CardProps {
+export interface IBoxProps {
   id: any;
-  text: string;
+  name: string;
   index: number;
-  moveCard: (dragIndex: number, hoverIndex: number) => void;
-  findCard: (id: string) => { index: number };
+  backgroundColor: string
   isDragging: boolean;
   connectDragSource: ConnectDragSource;
   connectDropTarget: ConnectDropTarget;
+  moveField: (dragIndex: number, hoverIndex: number) => void;
+  findField: (id: string) => any
+  addField: (field: any) => void;
+}
+export interface IBoxInstance {
+  name: string;
+  index: number;
+  backgroundColor: string;
 }
 
-interface CardInstance {
+export interface IBoxDOMInstance {
   getNode(): HTMLDivElement | null;
 }
 
-const Card: React.RefForwardingComponent<
+const Box: React.RefForwardingComponent<
   HTMLDivElement,
-  CardProps
+  IBoxProps
 > = React.forwardRef(
   (
-    { text, isDragging, connectDragSource, connectDropTarget }: CardProps,
+    { name, backgroundColor, isDragging, connectDragSource, connectDropTarget }: IBoxProps,
     ref
   ) => {
     const elementRef = useRef(null);
@@ -50,96 +56,53 @@ const Card: React.RefForwardingComponent<
     connectDropTarget(elementRef);
 
     const opacity = isDragging ? 0 : 1;
-    useImperativeHandle<{}, CardInstance>(ref, () => ({
+    useImperativeHandle<{}, IBoxDOMInstance>(ref, () => ({
       getNode: () => elementRef.current
     }));
     return (
-      <div ref={elementRef} style={{ ...style, opacity }}>
-        {text}
+      <div ref={elementRef} style={{ ...style, backgroundColor, opacity }}>
+        {name}
       </div>
     );
   }
 );
 
 export default DropTarget(
-  ItemTypes.CARD,
+  ItemTypes.BOX,
   {
-    hover(
-      props: CardProps,
-      monitor: DropTargetMonitor,
-      component: CardInstance
-    ) {
-      if (!component) {
-        return null;
+    canDrop: () => false,
+    hover(props: IBoxProps, monitor: DropTargetMonitor) {
+      const { id: draggedId } = monitor.getItem()
+      const { id: overId } = props
+
+      if (draggedId !== overId) {
+        const { index: overIndex } = props.findField(overId)
+        props.moveField(draggedId, overIndex)
       }
-      // node = HTML Div element from imperative API
-      const node = component.getNode();
-      if (!node) {
-        return null;
-      }
-
-      const dragIndex = monitor.getItem().index;
-      const hoverIndex = props.index;
-
-      // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-
-      // Determine rectangle on screen
-      const hoverBoundingRect = node.getBoundingClientRect();
-
-      // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset();
-
-      // Get pixels to the top
-      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
-
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-
-      // Time to actually perform the action
-      props.moveCard(dragIndex, hoverIndex);
-
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
-      monitor.getItem().index = hoverIndex;
-
-      return null;
-    }
+    },
   },
   (connect: DropTargetConnector) => ({
     connectDropTarget: connect.dropTarget()
   })
 )(
   DragSource(
-    ItemTypes.CARD,
+    ItemTypes.BOX,
     {
-      beginDrag: (props: CardProps) => ({
+      beginDrag: (props: IBoxProps) => ({
         id: props.id,
-        index: props.index
-      })
+        originalIndex: props.findField(props.id).index,
+      }),
+      endDrag(props: IBoxProps, monitor: DragSourceMonitor) {
+        const { id: droppedId, originalIndex } = monitor.getItem()
+        const didDrop = monitor.didDrop()
+        if (!didDrop) {
+          props.moveField(droppedId, originalIndex)
+        }
+      },
     },
     (connect: DragSourceConnector, monitor: DragSourceMonitor) => ({
       connectDragSource: connect.dragSource(),
       isDragging: monitor.isDragging()
     })
-  )(Card)
+  )(Box)
 );

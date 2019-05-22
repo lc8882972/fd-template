@@ -3,15 +3,12 @@ import { Form, Input, Tab } from "@alifd/next";
 import { RangePicker } from "@alifd/next/lib/date-picker";
 import ListTable from "components/table/index";
 import axios from '../../net/index';
-import { IAction, IService, IDataBody, IHead } from '../../types';
+import { IAction, IDataBody, IHead } from '../../types';
 
 import "./index.scss";
 
-const { useEffect, useReducer } = React;
+const { useState, useEffect, useReducer } = React;
 
-const fetchData = (parms: any): Promise<any> => {
-  return axios.get('/mock/services.json');
-}
 
 interface IState {
   isLoading: boolean,
@@ -33,12 +30,11 @@ const initialState = {
 };
 
 function reducer(state: IState, action: IAction) {
-  console.log(action.payload);
   switch (action.type) {
     case 'success':
-      return Object.assign(state, action.payload, { isLoading: false });
+      return Object.assign({}, state, action.payload, { isLoading: false });
     case 'error':
-      return Object.assign(state, initialState);
+      return Object.assign({}, state, initialState, { isLoading: false });
     default:
       throw new Error();
   }
@@ -52,10 +48,15 @@ function Page() {
     pageCount: 10,
   }
   useEffect(() => {
+    const fetchData = (parms: any): Promise<any> => {
+      return axios.get('/mock/services.json');
+    }
+
     fetchData(parmas).then(resp => {
-      dispatch({ type: 'success', payload: resp.data } as IAction);
+      dispatch({ type: 'success', payload: resp.data });
     });
-  });
+  }, []);
+
   return (
     <div className="redux-demo-home">
       <Tab>
