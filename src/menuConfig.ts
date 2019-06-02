@@ -1,8 +1,7 @@
+import { action, observable } from "mobx";
 // 菜单配置
 // headerMenuConfig：头部导航配置
 // asideMenuConfig：侧边导航配置
-import { action, observable } from "mobx";
-
 const headerMenuConfig: any[] = [];
 
 const asideMenuConfig = observable([
@@ -86,11 +85,10 @@ const menus = [
     parentNode: 4,
     createTime: "2019-04-19T03:02:12.000+0000",
     enabled: true
-  },
-
+  }
 ];
 
-const menuList:any[] = menus.filter(m => m.parentNode === null);
+const menuList: any[] = menus.filter(m => m.parentNode === null);
 
 function findChild(curr: any, all: any[]) {
   curr.children = all.filter(f => f.parentNode === curr.id);
@@ -105,8 +103,8 @@ menuList.forEach(l => {
   findChild(l, menus);
 });
 
-const a =action(() => {
+const a = action(() => {
   asideMenuConfig.push(...menuList);
-})
+});
 a();
 export { headerMenuConfig, asideMenuConfig };

@@ -1,6 +1,5 @@
-import Breadcrumb from "components/base/breadcrumb";
-import Header from "components/header/index";
-import SideMenu from "components/side-menu/index";
+import Header from "../../components/header/index";
+import SideMenu from "../../components/side-menu/index";
 import { observer } from 'mobx-react';
 import * as React from "react";
 import { asideMenuConfig } from "../../menuConfig";

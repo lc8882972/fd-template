@@ -61,7 +61,7 @@ function Page() {
 
   const findField = useCallback(
     (id: string) => {
-      const card = state.pageFields.filter(c => `${c.id}` === id)[0]
+      const card = state.pageFields.filter((c: any) => `${c.id}` === id)[0]
       return {
         card,
         index: state.pageFields.indexOf(card),
@@ -86,7 +86,7 @@ function Page() {
 
   const removeField = (field: any): void => {
     const { pageFields } = state;
-    const index = pageFields.findIndex((item) => item.name === field.name);
+    const index = pageFields.findIndex((item: any) => item.name === field.name);
     const newFields = pageFields.slice().splice(index, 1);
     dispatch({ type: 'updateField', payload: { pageFields: newFields } });
   }
@@ -97,7 +97,7 @@ function Page() {
         <Col span="4">
           <p>页面配置选项</p>
           <div>
-            {state.fields.map((item, index) => <Box key={item.name} index={index} {...item} />)}
+            {state.fields.map((item: any, index: number) => <Box key={item.name} index={index} {...item} />)}
           </div>
         </Col>
         <Col span="20">

@@ -1,5 +1,5 @@
 import { Grid } from "@alifd/next";
-import Form from "components/base/form";
+import Form from "../../components/base/form";
 import * as React from "react";
 import axiosInstance from '../../net';
 

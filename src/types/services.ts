@@ -1,4 +1,4 @@
-import { IHead, IDataBody } from "types";
+import { IHead, IDataBody } from "./index";
 
 export default interface IService {
   body: IDataBody;

@@ -2,7 +2,7 @@ import * as React from "react";
 import "./index.scss";
 
 import { Overlay } from "@alifd/next";
-import Form from "components/base/form";
+import Form from "../../components/base/form";
 
 interface IState {
   visible: boolean;

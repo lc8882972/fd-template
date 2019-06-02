@@ -2,42 +2,6 @@ import { Tree } from "@alifd/next";
 import { observer } from "mobx-react";
 import * as React from "react";
 
-const data = [
-  {
-    label: "Component",
-    key: "0",
-    children: [
-      {
-        label: "Form",
-        key: "2",
-        selectable: false,
-        children: [
-          {
-            label: "Input",
-            key: "4"
-          },
-          {
-            label: "Select",
-            key: "5",
-            // disabled: true,
-            selectable: true
-          }
-        ]
-      },
-      {
-        label: "Display",
-        key: "3",
-        children: [
-          {
-            label: "Table",
-            key: "6"
-          }
-        ]
-      }
-    ]
-  }
-];
-
 const menus = [
   {
     id: 1,

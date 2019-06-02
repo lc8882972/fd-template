@@ -7,7 +7,7 @@
         "index": 2,
         "name": "name",
         "caption": "service名称",
-        "dataType": "string"
+        "dataType": "url"
       },
       {
         "index": 3,

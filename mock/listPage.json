@@ -1,0 +1,132 @@
+{
+  "code": 200,
+  "message": "SUCCESS",
+  "data": {
+    "head": [
+      {
+        "name": "name",
+        "caption": "名称",
+        "dataType": "string"
+      },
+      {
+        "name": "caption",
+        "caption": "中文名",
+        "dataType": "string"
+      },
+      {
+        "name": "type",
+        "caption": "类型(view/form/plist等)",
+        "dataType": "string"
+      },
+      {
+        "name": "description",
+        "caption": "描述",
+        "dataType": "string"
+      },
+      {
+        "name": "service",
+        "caption": "服务名",
+        "dataType": "string"
+      },
+      {
+        "name": "model",
+        "caption": "model名",
+        "dataType": "string"
+      },
+      {
+        "name": "myResponseApp",
+        "caption": "响应结果特殊处理类路径",
+        "dataType": "string"
+      },
+      {
+        "name": "customControllerUrl",
+        "caption": "自定义Controller的Url",
+        "dataType": "string"
+      },
+      {
+        "name": "id",
+        "caption": "id",
+        "dataType": "id"
+      },
+      {
+        "name": "myRequestId",
+        "caption": "对应请求id",
+        "dataType": "id"
+      }
+    ],
+    "body": {
+      "current": 1,
+      "total": 18,
+      "list": [
+        {
+          "pageButton": null,
+          "name": "serviceConfigList",
+          "caption": "服务列表",
+          "type": "plist",
+          "description": null,
+          "service": "generalManager",
+          "model": "ServiceMeta",
+          "myResponseApp": null,
+          "customControllerUrl": null,
+          "id": "1",
+          "myRequestId": "1",
+          "listButton": [
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "goto_form",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseForm/",
+              "url": "/generalManager/matrix/myRequest/myResponseForm/1",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": ""
+            },
+            {
+              "name": "页面配置",
+              "area": "list",
+              "type": "customComponent",
+              "originalUrl": "/generalManager/doServiceManager/pageFieldConfigPage/",
+              "url": "/generalManager/doServiceManager/pageFieldConfigPage/1",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": "/system/drag"
+            },
+            {
+              "name": "按钮配置",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponsePageButtonList",
+              "url": "/generalManager/matrix/myRequest/myResponsePageButtonList",
+              "urlFollowField": null,
+              "dataParam": "{\"myResponse.id\":\"1\"}",
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList_remove/",
+              "url": "/generalManager/matrix/myRequest/myResponseList_remove/1",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        }
+      ],
+      "pageSize": 20
+    },
+    "topButtons": [
+      {
+        "name": "新建",
+        "area": "top",
+        "type": "pop_form",
+        "originalUrl": "/generalManager/matrix/myRequest/myResponseForm",
+        "url": "/generalManager/matrix/myRequest/myResponseForm",
+        "urlFollowField": null,
+        "dataParam": null,
+        "customComponent": null
+      }
+    ]
+  }
+}

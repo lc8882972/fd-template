@@ -1,4 +1,4 @@
-import { IDataList } from "types";
+import IDataList from "./dataList";
 
 export default interface IDataBody {
   current: number;

@@ -118,7 +118,7 @@ const config = {
       {
         test: /\.scss/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           ...scssLoader
         ],
       },
@@ -205,7 +205,7 @@ if (!DEV) {
       chunkModules: false,
     },
   };
-  config.devtool = 'source-map';
+  config.devtool = 'cheap-module-eval-source-map';
 }
 
 module.exports = config;
