@@ -1,25 +1,18 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
 import Router from './router';
-import { ThemeContext, themes } from './store/context';
+import { ThemeContext, themes, ITheme } from './store/context';
 
 import './index.scss';
+const { useState } = React;
 
-interface IState {
-  theme: React.ProviderProps<any>
-}
+function App() {
+  const [theme] = useState<ITheme>(themes.dark);
 
-class App extends React.Component<IState> {
-  public state = {
-    theme: themes.dark
-  }
-
-  public render() {
-    return (
-      <ThemeContext.Provider value={this.state.theme}>
-        <Router />
-      </ThemeContext.Provider>)
-  }
+  return (
+    <ThemeContext.Provider value={theme}>
+      <Router />
+    </ThemeContext.Provider>)
 }
 
 export default hot(App);

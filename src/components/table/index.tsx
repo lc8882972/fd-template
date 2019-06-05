@@ -2,7 +2,7 @@ import * as React from "react";
 import { Pagination, Table } from "@alifd/next";
 
 import { IDataBody, IHead, IDataList } from '../../types';
-import './index.scss';
+import * as styles from './index.module.scss';
 const { useCallback, useState } = React;
 
 interface IProps {
@@ -32,7 +32,7 @@ function renderColumn(cols: IHead[]) {
 
 const render = (value: any, index: number, record: IDataList) => {
   return record.listButton.map((item) => {
-    return <a className="link" key={item.name} href="#">{item.name}</a>
+    return <a className={styles.link} key={item.name} href="#">{item.name}</a>
   })
 };
 
@@ -43,11 +43,6 @@ function List({ data, loading, head }: IProps) {
     updateKeys(selectedRowKeys);
   }, []);
   const rowSelection = {
-    getProps: (record: any) => {
-      return {
-        disabled: record.id === 100306660942
-      };
-    },
     onChange,
   };
 
@@ -60,9 +55,9 @@ function List({ data, loading, head }: IProps) {
         rowSelection={rowSelection}
       >
         {renderColumn(head)}
-        <Table.Column cell={render} title="操作" />
+        <Table.Column width={300} cell={render} title="操作" />
       </Table>
-      <Pagination className="page-demo" total={data.total} pageSize={data.pageSize} />
+      <Pagination className={styles.pagination} total={data.total} pageSize={data.pageSize} />
     </div>
   );
 }

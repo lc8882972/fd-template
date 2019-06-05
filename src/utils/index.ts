@@ -1,5 +1,4 @@
 "use strict";
-
 /**
  * abc-xyz => AbcXyz
  * @param {string} str
@@ -102,10 +101,17 @@ export function toJsonSchame(array: any[]) {
   array
     .filter(item => item.dataType !== "id")
     .map(item => {
-      schame.properties[item.name] = {
-        type: item.dataType,
-        title: item.caption
+      const descriptor = {
+        value: {
+          type: item.dataType,
+          title: item.caption
+        },
+        writable: true,
+        enumerable: true,
+        configurable: true
       };
+
+      Object.defineProperty(schame.properties, item.name, descriptor);
     });
   return schame;
 }

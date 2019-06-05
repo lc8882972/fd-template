@@ -6,21 +6,9 @@ import {
   DropTargetMonitor
 } from "react-dnd";
 
-import Box from "./Box";
+import Box from "./Card";
 import ItemTypes from "./ItemTypes";
-
-const style: React.CSSProperties = {
-  height: "12rem",
-  width: "12rem",
-  marginRight: "1.5rem",
-  marginBottom: "1.5rem",
-  color: "white",
-  padding: "1rem",
-  textAlign: "center",
-  fontSize: "1rem",
-  lineHeight: "normal",
-  float: "left"
-};
+import * as styles from './index.module.scss';
 
 interface IDustbinProps {
   fields: any[],
@@ -44,7 +32,7 @@ function Dustbin({ fields, moveField, canDrop, isOver, connectDropTarget }: IDus
 
 
   return connectDropTarget(
-    <div style={{ ...style, backgroundColor }}>
+    <div className={styles.dustbin} style={{ backgroundColor }}>
       {fields.map((item: any, i: number) => {
         return (
           <Box key={i} index={i} {...item} />

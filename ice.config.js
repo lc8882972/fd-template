@@ -1,6 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-
+// const css_modules = require('css-modules-typescript-loader');
 module.exports = {
   entry: './src/index.tsx',
   alias: {
@@ -8,6 +9,7 @@ module.exports = {
     layouts: path.join(__dirname, 'src/layouts'),
     utils: path.join(__dirname, 'src/utils'),
     pages: path.join(__dirname, 'src/pages'),
+    'react-dom': '@hot-loader/react-dom'
   },
   vendor: true,
   plugins: [
@@ -36,7 +38,15 @@ module.exports = {
     config
       // 定义插件名称
       .plugin('ForkTsCheckerWebpackPlugin')
-      // 第一项为具体插件，第二项为插件参数
       .use(ForkTsCheckerWebpackPlugin);
+    // config
+    //   .plugin('WatchIgnorePlugin')
+    //   .use(webpack.WatchIgnorePlugin, [[/s?css\.d\.ts$/]]);
+    // const rule = config.module
+    //   .rule('scss-module')  // ice-scripts 中已定义这条规则
+
+    // rule.before('css-loader').use('css-modules-typescript-loader').loader('css-modules-typescript-loader');
   }
 }
+
+

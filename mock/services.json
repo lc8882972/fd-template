@@ -2,27 +2,92 @@
   "code": 200,
   "message": "SUCCESS",
   "data": {
-    "head": [
+    "pageConditions": [
       {
-        "index": 2,
-        "name": "name",
-        "caption": "service名称",
-        "dataType": "url"
+        "id": "1",
+        "name": "测试查询11",
+        "type": "1",
+        "orderByHql": null,
+        "parameters": [
+          {
+            "name": "id",
+            "caption": "id",
+            "operation": "eq",
+            "value": null,
+            "inputType": "input"
+          },
+          {
+            "name": "name",
+            "caption": "名称",
+            "operation": "eq",
+            "value": null,
+            "inputType": "input"
+          },
+          {
+            "name": "select",
+            "caption": "选择",
+            "operation": "eq",
+            "value": null,
+            "inputType": "input",
+            "options": [
+              "one",
+              "two",
+              "three"
+            ]
+          }
+        ]
       },
       {
-        "index": 3,
+        "id": "2",
+        "name": "测试查询2",
+        "type": "1",
+        "orderByHql": null,
+        "parameters": [
+          {
+            "name": "caption",
+            "caption": "中文名称",
+            "operation": "like",
+            "value": null,
+            "inputType": "input"
+          }
+        ]
+      },
+      {
+        "id": "402880e46b0813ad016b0817cde90010",
+        "name": "测试查询3",
+        "type": "1",
+        "orderByHql": null,
+        "parameters": []
+      },
+      {
+        "id": "402880e46b081b99016b081c2e1a0000",
+        "name": "隐藏测试",
+        "type": "0",
+        "orderByHql": null,
+        "parameters": []
+      }
+    ],
+    "head": [
+      {
+        "index": 1,
+        "name": "name",
+        "caption": "service名称",
+        "dataType": "string"
+      },
+      {
+        "index": 2,
         "name": "caption",
         "caption": "中文名",
         "dataType": "string"
       },
       {
-        "index": 4,
+        "index": 3,
         "name": "description",
         "caption": "描述",
         "dataType": "string"
       },
       {
-        "index": 1,
+        "index": 0,
         "name": "id",
         "caption": "id",
         "dataType": "id"
@@ -30,14 +95,14 @@
     ],
     "body": {
       "current": 1,
-      "total": 2,
+      "total": 13,
       "list": [
         {
           "pageButton": null,
           "name": "generalManager",
           "caption": "页面请求综合管理",
-          "description": null,
-          "id": "100001",
+          "description": "",
+          "id": "1",
           "listButton": [
             {
               "name": "model列表",
@@ -46,7 +111,28 @@
               "originalUrl": "/generalManager/matrix/myRequest/modelList",
               "url": "/generalManager/matrix/myRequest/modelList",
               "urlFollowField": null,
-              "dataParam": "{\"serviceMeta.id\":\"1\"}"
+              "dataParam": "{\"serviceMeta.id\":\"1\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"generalManager\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"generalManager\"}",
+              "customComponent": null
             },
             {
               "name": "编辑",
@@ -55,16 +141,18 @@
               "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
               "url": "/generalManager/matrix/myRequest/serviceForm/1",
               "urlFollowField": "id",
-              "dataParam": null
+              "dataParam": null,
+              "customComponent": null
             },
             {
               "name": "删除",
               "area": "list",
               "type": "remove",
-              "originalUrl": "/generalManager/matrix/myRequest/serviceRemove/",
-              "url": "/generalManager/matrix/myRequest/serviceRemove/1",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/1",
               "urlFollowField": "id",
-              "dataParam": null
+              "dataParam": null,
+              "customComponent": null
             }
           ]
         },
@@ -73,7 +161,7 @@
           "name": "organization",
           "caption": "用户",
           "description": null,
-          "id": "100002",
+          "id": "2",
           "listButton": [
             {
               "name": "model列表",
@@ -82,7 +170,28 @@
               "originalUrl": "/generalManager/matrix/myRequest/modelList",
               "url": "/generalManager/matrix/myRequest/modelList",
               "urlFollowField": null,
-              "dataParam": "{\"serviceMeta.id\":\"2\"}"
+              "dataParam": "{\"serviceMeta.id\":\"2\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"organization\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"organization\"}",
+              "customComponent": null
             },
             {
               "name": "编辑",
@@ -91,16 +200,667 @@
               "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
               "url": "/generalManager/matrix/myRequest/serviceForm/2",
               "urlFollowField": "id",
-              "dataParam": null
+              "dataParam": null,
+              "customComponent": null
             },
             {
               "name": "删除",
               "area": "list",
               "type": "remove",
-              "originalUrl": "/generalManager/matrix/myRequest/serviceRemove/",
-              "url": "/generalManager/matrix/myRequest/serviceRemove/2",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2",
               "urlFollowField": "id",
-              "dataParam": null
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "building",
+          "caption": "模型物体",
+          "description": "基础单元",
+          "id": "2c94815d6ad81557016ad8722e710001",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c94815d6ad81557016ad8722e710001\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"building\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"building\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c94815d6ad81557016ad8722e710001",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c94815d6ad81557016ad8722e710001",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "standard",
+          "caption": "子项",
+          "description": null,
+          "id": "2c94815d6ad81557016ad87312860002",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c94815d6ad81557016ad87312860002\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"standard\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"standard\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c94815d6ad81557016ad87312860002",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c94815d6ad81557016ad87312860002",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "standardTemplet",
+          "caption": "标准方案/模块库",
+          "description": "",
+          "id": "2c94815d6ad81557016ad8748b7c0003",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c94815d6ad81557016ad8748b7c0003\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"standardTemplet\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"standardTemplet\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c94815d6ad81557016ad8748b7c0003",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c94815d6ad81557016ad8748b7c0003",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "customer",
+          "caption": "客户",
+          "description": null,
+          "id": "2c94815d6ad81557016ad874faaf0004",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c94815d6ad81557016ad874faaf0004\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"customer\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"customer\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c94815d6ad81557016ad874faaf0004",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c94815d6ad81557016ad874faaf0004",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "structure",
+          "caption": "户型",
+          "description": "原始户型",
+          "id": "2c94815d6ad81557016ad87589240005",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c94815d6ad81557016ad87589240005\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"structure\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"structure\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c94815d6ad81557016ad87589240005",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c94815d6ad81557016ad87589240005",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "construction",
+          "caption": "工程",
+          "description": null,
+          "id": "2c9481776ae354e9016af738964e0092",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c9481776ae354e9016af738964e0092\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"construction\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"construction\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c9481776ae354e9016af738964e0092",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c9481776ae354e9016af738964e0092",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "construction-templet",
+          "caption": "工程模板",
+          "description": null,
+          "id": "2c9481776ae354e9016af761b99000bf",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c9481776ae354e9016af761b99000bf\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"construction-templet\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"construction-templet\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c9481776ae354e9016af761b99000bf",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c9481776ae354e9016af761b99000bf",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "dispatcher",
+          "caption": "调度中心",
+          "description": null,
+          "id": "2c9481776ae354e9016af7620bc600c0",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c9481776ae354e9016af7620bc600c0\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"dispatcher\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"dispatcher\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c9481776ae354e9016af7620bc600c0",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c9481776ae354e9016af7620bc600c0",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "provider",
+          "caption": "供应商/工人",
+          "description": null,
+          "id": "2c9481776ae354e9016af76244f700c1",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"2c9481776ae354e9016af76244f700c1\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"provider\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"provider\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/2c9481776ae354e9016af76244f700c1",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/2c9481776ae354e9016af76244f700c1",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "design",
+          "caption": "设计",
+          "description": null,
+          "id": "3",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"3\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"design\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"design\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/3",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/3",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            }
+          ]
+        },
+        {
+          "pageButton": null,
+          "name": "product",
+          "caption": "产品",
+          "description": null,
+          "id": "4",
+          "listButton": [
+            {
+              "name": "model列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/modelList",
+              "url": "/generalManager/matrix/myRequest/modelList",
+              "urlFollowField": null,
+              "dataParam": "{\"serviceMeta.id\":\"4\"}",
+              "customComponent": null
+            },
+            {
+              "name": "请求列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myRequestList",
+              "url": "/generalManager/matrix/myRequest/myRequestList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"product\"}",
+              "customComponent": null
+            },
+            {
+              "name": "响应列表",
+              "area": "list",
+              "type": "goto_plist",
+              "originalUrl": "/generalManager/matrix/myRequest/myResponseList",
+              "url": "/generalManager/matrix/myRequest/myResponseList",
+              "urlFollowField": null,
+              "dataParam": "{\"service\":\"product\"}",
+              "customComponent": null
+            },
+            {
+              "name": "编辑",
+              "area": "list",
+              "type": "pop_form",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceForm/",
+              "url": "/generalManager/matrix/myRequest/serviceForm/4",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
+            },
+            {
+              "name": "删除",
+              "area": "list",
+              "type": "remove",
+              "originalUrl": "/generalManager/matrix/myRequest/serviceConfigList_remove/",
+              "url": "/generalManager/matrix/myRequest/serviceConfigList_remove/4",
+              "urlFollowField": "id",
+              "dataParam": null,
+              "customComponent": null
             }
           ]
         }
@@ -115,7 +875,8 @@
         "originalUrl": "/generalManager/matrix/myRequest/serviceForm",
         "url": "/generalManager/matrix/myRequest/serviceForm",
         "urlFollowField": null,
-        "dataParam": null
+        "dataParam": null,
+        "customComponent": null
       }
     ]
   }

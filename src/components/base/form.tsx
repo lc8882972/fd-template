@@ -10,7 +10,6 @@ import {
   Upload
 } from "@alifd/next";
 import * as React from "react";
-import Item from "./item";
 
 interface IFromProps {
   dataSource: any[];

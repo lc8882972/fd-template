@@ -14,11 +14,13 @@ interface IState {
   pageFields: any[]
 }
 
-const initialState = {
-  isLoading: true,
-  fields: [],
-  pageFields: []
-};
+function initialState(): IState {
+  return {
+    isLoading: true,
+    fields: [],
+    pageFields: []
+  };
+}
 
 function reducer<IState>(state: IState, action: IAction): IState {
   switch (action.type) {
@@ -40,7 +42,7 @@ const { Row, Col } = Grid;
 
 
 function Page() {
-  const [state, dispatch] = useReducer<IState, IAction>(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, null, initialState);
   useEffect(() => {
     axios.get('/mock/fields.json').then(resp => {
       dispatch({ type: "success", payload: resp.data })

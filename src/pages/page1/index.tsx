@@ -1,14 +1,14 @@
 import * as React from "react";
-import { Form, Input, Tab, Button, Dialog } from "@alifd/next";
-import { RangePicker } from "@alifd/next/lib/date-picker";
+import { Button, Dialog } from "@alifd/next";
 import ListTable from "../../components/table/index";
 import UForm from '../../components/form';
+import Filter from '../../components/filter-form';
 import axios from '../../net/index';
 import { IAction, IDataBody, IHead } from '../../types';
 
 import { toJsonSchame } from '../../utils';
 
-import "./index.scss";
+import * as styles from "./index.module.scss";
 
 const { useState, useCallback, useEffect, useReducer } = React;
 
@@ -18,10 +18,9 @@ interface IState {
   pageUrl: string;
   body: IDataBody;
   head: IHead[];
-  topButtons: [];
+  topButtons: any[];
+  pageConditions: any[]
 }
-
-
 
 function init(url: string): IState {
   const initialState: IState = {
@@ -34,7 +33,8 @@ function init(url: string): IState {
       total: 0,
     },
     head: [],
-    topButtons: []
+    topButtons: [],
+    pageConditions: []
   };
 
   return initialState;
@@ -79,48 +79,29 @@ function Page({ location }: any) {
   const closeDialog = useCallback((event: any): void => {
     setVisble(false);
   }, [currentPageUrl])
+
+  const queryData = useCallback((values) => {
+    console.log(values);
+  }, [currentPageUrl]);
+
   return (
     <div className="redux-demo-home">
-      <Tab>
-        <Tab.Item title="精简查询" key="1">
-          <Form labelAlign="left" inline={true}>
-            <Form.Item label="date:">
-              <RangePicker />
-            </Form.Item>
-            <Form.Item>
-              <Form.Submit>Submit</Form.Submit>
-            </Form.Item>
-          </Form>
-        </Tab.Item>
-        <Tab.Item title="精确查询" key="2">
-          <Form labelAlign="left" inline={true}>
-            <Form.Item label="id:">
-              <Input />
-            </Form.Item>
-            <Form.Item label="date:">
-              <RangePicker />
-            </Form.Item>
-            <Form.Item>
-              <Form.Submit>Submit</Form.Submit>
-            </Form.Item>
-          </Form>
-        </Tab.Item>
-      </Tab>
-      <div>
-        <Dialog title="新建" footerAlign="center" visible={isVisble} onCancel={closeDialog} onOk={() => setVisble(false)}>
-          <UForm jsonSchema={toJsonSchame(state.head)} />
-        </Dialog>
-        <div className="topButtons">
-          {state.topButtons.map((item: any) => {
-            return <Button type="primary" key={item.name} onClick={() => onButtonsClick(item)}>{item.name}</Button>
-          })}
-        </div>
-        <ListTable
-          loading={state.isLoading}
-          data={state.body}
-          head={state.head}
-        />
+      <Filter pageConditions={state.pageConditions} onSubmitForm={queryData} />
+
+      <Dialog title="新建" footerAlign="center" visible={isVisble} onCancel={closeDialog} onOk={() => setVisble(false)}>
+        <UForm jsonSchema={toJsonSchame(state.head)} />
+      </Dialog>
+      <div className={styles.topButtons}>
+        {state.topButtons.map((item: any) => {
+          return <Button type="primary" key={item.name} onClick={() => onButtonsClick(item)}>{item.name}</Button>
+        })}
       </div>
+      <ListTable
+        loading={state.isLoading}
+        data={state.body}
+        head={state.head}
+      />
+
     </div>
   );
 

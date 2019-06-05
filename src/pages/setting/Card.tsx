@@ -5,15 +5,13 @@ import {
   DragSourceConnector,
   DragSourceMonitor,
   ConnectDropTarget,
-  DropTarget,
-  DropTargetConnector,
-  DropTargetMonitor,
 } from "react-dnd";
 import ItemTypes from "./ItemTypes";
 const { useRef, useImperativeHandle } = React;
 
 const style: React.CSSProperties = {
   border: "1px dashed gray",
+  width: "300px",
   backgroundColor: "white",
   padding: "0.5rem 1rem",
   marginRight: "1.5rem",
@@ -25,18 +23,16 @@ export interface IBoxProps {
   id: any;
   name: string;
   index: number;
+  type: string,
+  description: string,
   backgroundColor: string
   isDragging: boolean;
   connectDragSource: ConnectDragSource;
   connectDropTarget: ConnectDropTarget;
-  moveField: (dragIndex: number, hoverIndex: number) => void;
-  findField: (id: string) => any
-  addField: (field: any) => void;
 }
 export interface IBoxInstance {
   name: string;
   index: number;
-  backgroundColor: string;
 }
 
 export interface IBoxDOMInstance {
@@ -48,61 +44,34 @@ const Box: React.RefForwardingComponent<
   IBoxProps
 > = React.forwardRef(
   (
-    { name, backgroundColor, isDragging, connectDragSource, connectDropTarget }: IBoxProps,
+    { name, isDragging, connectDragSource }: IBoxProps,
     ref
   ) => {
     const elementRef = useRef(null);
     connectDragSource(elementRef);
-    connectDropTarget(elementRef);
 
     const opacity = isDragging ? 0 : 1;
     useImperativeHandle<{}, IBoxDOMInstance>(ref, () => ({
       getNode: () => elementRef.current
     }));
     return (
-      <div ref={elementRef} style={{ ...style, backgroundColor, opacity }}>
+      <div ref={elementRef} style={{ ...style, opacity }}>
         {name}
       </div>
     );
   }
 );
 
-export default DropTarget(
+export default DragSource(
   ItemTypes.BOX,
   {
-    canDrop: () => false,
-    hover(props: IBoxProps, monitor: DropTargetMonitor) {
-      const { id: draggedId } = monitor.getItem()
-      const { id: overId } = props
-
-      if (draggedId !== overId) {
-        const { index: overIndex } = props.findField(overId)
-        props.moveField(draggedId, overIndex)
-      }
+    beginDrag: ({ name, type, description }: IBoxProps) => {
+      return { name, type, description };
     },
   },
-  (connect: DropTargetConnector) => ({
-    connectDropTarget: connect.dropTarget()
+  (connect: DragSourceConnector, monitor: DragSourceMonitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
   })
-)(
-  DragSource(
-    ItemTypes.BOX,
-    {
-      beginDrag: (props: IBoxProps) => ({
-        id: props.id,
-        originalIndex: props.findField(props.id).index,
-      }),
-      endDrag(props: IBoxProps, monitor: DragSourceMonitor) {
-        const { id: droppedId, originalIndex } = monitor.getItem()
-        const didDrop = monitor.didDrop()
-        if (!didDrop) {
-          props.moveField(droppedId, originalIndex)
-        }
-      },
-    },
-    (connect: DragSourceConnector, monitor: DragSourceMonitor) => ({
-      connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging()
-    })
-  )(Box)
-);
+)(Box);
+
