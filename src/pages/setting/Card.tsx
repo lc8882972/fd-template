@@ -51,7 +51,7 @@ const Box: React.RefForwardingComponent<
     connectDragSource(elementRef);
 
     const opacity = isDragging ? 0 : 1;
-    useImperativeHandle<{}, IBoxDOMInstance>(ref, () => ({
+    useImperativeHandle<any, IBoxDOMInstance>(ref, () => ({
       getNode: () => elementRef.current
     }));
     return (

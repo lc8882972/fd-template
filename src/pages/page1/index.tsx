@@ -40,7 +40,7 @@ function init(url: string): IState {
   return initialState;
 }
 
-function reducer(state: IState, action: IAction) {
+function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case 'success':
       return Object.assign({}, state, action.payload, { isLoading: false });
@@ -55,9 +55,9 @@ function Page({ location }: any) {
 
   const currentPageUrl = location.pathname + location.search;
   const [isVisble, setVisble] = useState(false);
-  const [state, dispatch] = useReducer(reducer, currentPageUrl, init);
+  const [state, dispatch] = useReducer<(state: IState, action: IAction) => IState, string>(reducer, currentPageUrl, init);
   const parmas = {
-    page: 1,
+    current: 1,
     pageCount: 10,
   }
   useEffect(() => {
@@ -84,6 +84,14 @@ function Page({ location }: any) {
     console.log(values);
   }, [currentPageUrl]);
 
+  const onRowButtonClick = useCallback((button: any, record: any): void => {
+    console.log(button);
+    console.log(record);
+    if (button.type === 'pop_form') {
+      setVisble(true);
+    }
+  }, [currentPageUrl]);
+
   return (
     <div className="redux-demo-home">
       <Filter pageConditions={state.pageConditions} onSubmitForm={queryData} />
@@ -100,6 +108,7 @@ function Page({ location }: any) {
         loading={state.isLoading}
         data={state.body}
         head={state.head}
+        onRowButtonClick={onRowButtonClick}
       />
 
     </div>

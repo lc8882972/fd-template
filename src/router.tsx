@@ -54,7 +54,7 @@ function renderRouterConfigV4(container: any, router: any, contextPath: string) 
     if (!routeItem.path) {
       // eslint-disable-next-line
       console.error("route must has `path`");
-    } else if (routeItem.path == "/" || routeItem.path == "*") {
+    } else if (routeItem.path === "/" || routeItem.path === "*") {
       routePath = routeItem.path;
     } else {
       routePath = `/${routeContextPath}/${routeItem.path}`.replace(/\/+/g, "/");

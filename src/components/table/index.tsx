@@ -3,12 +3,14 @@ import { Pagination, Table } from "@alifd/next";
 
 import { IDataBody, IHead, IDataList } from '../../types';
 import * as styles from './index.module.scss';
-const { useCallback, useState } = React;
 
 interface IProps {
   head: IHead[];
   data: IDataBody;
   loading: boolean;
+  onPaginationChange?: (current: number) => void;
+  onRowClick?: (record: any, index: number, e: Event) => void;
+  onRowButtonClick?: (button: any, record: any) => void;
 }
 
 function link(value: string) {
@@ -30,20 +32,27 @@ function renderColumn(cols: IHead[]) {
   });
 }
 
-const render = (value: any, index: number, record: IDataList) => {
-  return record.listButton.map((item) => {
-    return <a className={styles.link} key={item.name} href="#">{item.name}</a>
-  })
-};
 
-function List({ data, loading, head }: IProps) {
+function List({ data, loading, head, onPaginationChange, onRowClick, onRowButtonClick }: IProps) {
 
-  const [selectKeys, updateKeys] = useState([]);
-  const onChange = useCallback((selectedRowKeys: never[], records: any[]) => {
-    updateKeys(selectedRowKeys);
-  }, []);
-  const rowSelection = {
-    onChange,
+  // const [selectKeys, updateKeys] = useState<any>([]);
+  // const onChange = (selectedRowKeys: any[], records: any[]) => {
+  //   updateKeys(selectedRowKeys);
+  // };
+  // const rowSelection = {
+  //   onChange,
+  // };
+
+  const onHandleClick = (button: any, record: any): void => {
+    if (onRowButtonClick) {
+      onRowButtonClick(button, record);
+    }
+  }
+
+  const render = (value: any, index: number, record: IDataList) => {
+    return record.listButton.map((item) => {
+      return (<a className={styles.link} key={item.name} href="javascript:void(0)" onClick={() => onHandleClick(item, record)}>{item.name}</a>);
+    })
   };
 
   return (
@@ -52,12 +61,12 @@ function List({ data, loading, head }: IProps) {
         dataSource={data.list}
         loading={loading}
         isZebra={true}
-        rowSelection={rowSelection}
+        onRowClick={onRowClick}
       >
         {renderColumn(head)}
         <Table.Column width={300} cell={render} title="操作" />
       </Table>
-      <Pagination className={styles.pagination} total={data.total} pageSize={data.pageSize} />
+      <Pagination className={styles.pagination} total={data.total} pageSize={data.pageSize} onChange={onPaginationChange} />
     </div>
   );
 }
