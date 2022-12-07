@@ -90,7 +90,7 @@
     "ice-plugin-fusion": "^0.1.6",
     "ice-plugin-moment-locales": "^0.1.0",
     "ice-scripts": "^2.0.2",
-    "lint-staged": "^8.0.4",
+    "lint-staged": "^13.1.0",
     "prettier": "^1.14.2",
     "react-hot-loader": "^4.8.6",
     "rimraf": "^2.6.3",
